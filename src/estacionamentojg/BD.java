@@ -2,6 +2,8 @@ package estacionamentojg;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class BD {
     
@@ -32,12 +34,20 @@ public class BD {
             return null;
         }
     }
+    
+    public void setEstacionado(String modelo, String placa, String cor) {
+        try {
+            ResultSet rs = conecta().executeQuery("INSERT INTO estacionados(placa, modelo, cor) VALUES " +  placa + " " + modelo + " " + cor + ";"); // pega modelos em ordem alfabética
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     
     public ArrayList getModelos() {
         try {
             //System.out.println("listando os carros");
-            ResultSet rs = conecta().executeQuery("SELECT * FROM carros ORDER BY modelo ASC");
+            ResultSet rs = conecta().executeQuery("SELECT * FROM carros ORDER BY modelo ASC;"); // pega modelos em ordem alfabética
 
             ArrayList<String> dados = new ArrayList<String>();
             while (rs.next()) {

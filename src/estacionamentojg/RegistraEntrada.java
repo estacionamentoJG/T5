@@ -28,7 +28,7 @@ public class RegistraEntrada extends javax.swing.JFrame {
     
     private JComboBox addComboBox(ArrayList x) {
         JComboBox cb = new JComboBox(); // cria objeto JComboBox       
-        String str = null; // inicia string
+        String str; // inicia string
         ArrayList<String> listaModelos = x; // cria arrayList de strings
         for(String n : listaModelos) {
             str = n; // pega cada item
@@ -44,7 +44,7 @@ public class RegistraEntrada extends javax.swing.JFrame {
         cor = new javax.swing.JLabel();
         textoCor = new javax.swing.JTextField();
         registrar = new javax.swing.JButton();
-        javax.swing.JComboBox tiposModelo = addComboBox(c.getModelos());
+        tiposModelo = addComboBox(c.getModelos());
         textoPlaca = new JFormattedTextField(mPLACA);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -56,6 +56,11 @@ public class RegistraEntrada extends javax.swing.JFrame {
         cor.setText("Cor");
 
         registrar.setText("Registrar");
+        registrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrarActionPerformed(evt);
+            }
+        });
 
         tiposModelo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,16 +122,32 @@ public class RegistraEntrada extends javax.swing.JFrame {
                 .addGap(51, 51, 51))
         );
 
+        tiposModelo.getAccessibleContext().setAccessibleParent(tiposModelo);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void tiposModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tiposModeloActionPerformed
-        
-    }//GEN-LAST:event_tiposModeloActionPerformed
 
     private void textoPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoPlacaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textoPlacaActionPerformed
+
+    private void registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarActionPerformed
+        // AÇÃO DO BOTÃO REGISTRAR
+        
+        String placa1 = textoPlaca.getText(); // pega placa escrita
+        String modelo1 = (String) tiposModelo.getSelectedItem(); // converte em string o item selecionado
+        String cor1 = textoCor.getText(); // pega cor escrita
+        System.out.println(placa1+" "+modelo1+" "+cor1);
+        
+       BD registra = new BD (); // cria objeto BD
+       //registra.setEstacionado(modelo1, placa1, cor1); // insere carro estacionado
+        
+        //System.exit(0); // sair do programa
+    }//GEN-LAST:event_registrarActionPerformed
+
+    private void tiposModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tiposModeloActionPerformed
+
+    }//GEN-LAST:event_tiposModeloActionPerformed
 
    
     public static void main(String args[]) {
@@ -160,6 +181,7 @@ public class RegistraEntrada extends javax.swing.JFrame {
             }
         });
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel cor;
     private javax.swing.JLabel modelo;
@@ -167,5 +189,6 @@ public class RegistraEntrada extends javax.swing.JFrame {
     private javax.swing.JButton registrar;
     private javax.swing.JTextField textoCor;
     private javax.swing.JFormattedTextField textoPlaca;
+    private javax.swing.JComboBox tiposModelo;
     // End of variables declaration//GEN-END:variables
 }
