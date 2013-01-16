@@ -1,25 +1,41 @@
 package estacionamentojg;
 
 import java.text.ParseException;
-import javax.swing.JFormattedTextField;
+import java.util.ArrayList;
+import javax.swing.JComboBox;
 import javax.swing.text.MaskFormatter;
+import javax.swing.JFormattedTextField;
+
 
 public class RegistraEntrada extends javax.swing.JFrame {
 
-    MaskFormatter mPLACA = new MaskFormatter(); // cria mascara para placa
+    MaskFormatter mPLACA = new MaskFormatter();
+    BD c = new BD();
     
     public RegistraEntrada() {
         initComponents();
-        try{
+        try {
             mPLACA.setMask("UUU-####");
             mPLACA.setPlaceholderCharacter('_');
         }
-        catch(ParseException e){
+        catch(ParseException e) {
             e.printStackTrace();
         }
     }
 
+    
     @SuppressWarnings("unchecked")
+    
+    private JComboBox addComboBox(ArrayList x) {
+        JComboBox cb = new JComboBox(); // cria objeto JComboBox       
+        String str; // inicia string
+        ArrayList<String> listaModelos = x; // cria arrayList de strings
+        for(String n : listaModelos) {
+            str = n; // pega cada item
+            cb.addItem(n);  // e add no JComboBox
+        }
+        return cb; // retorna JComboBox
+    }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -28,8 +44,8 @@ public class RegistraEntrada extends javax.swing.JFrame {
         cor = new javax.swing.JLabel();
         textoCor = new javax.swing.JTextField();
         registrar = new javax.swing.JButton();
-        tiposModelo = new javax.swing.JComboBox();
-        mPlaca = new JFormattedTextField(mPLACA);
+        tiposModelo = addComboBox(c.getModelos());
+        textoPlaca = new JFormattedTextField(mPLACA);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -40,11 +56,21 @@ public class RegistraEntrada extends javax.swing.JFrame {
         cor.setText("Cor");
 
         registrar.setText("Registrar");
+        registrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrarActionPerformed(evt);
+            }
+        });
 
-        tiposModelo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         tiposModelo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tiposModeloActionPerformed(evt);
+            }
+        });
+
+        textoPlaca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textoPlacaActionPerformed(evt);
             }
         });
 
@@ -52,56 +78,78 @@ public class RegistraEntrada extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(151, Short.MAX_VALUE)
+                .addComponent(registrar)
+                .addGap(159, 159, 159))
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(113, 113, 113)
-                        .addComponent(registrar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(modelo)
+                        .addGap(18, 18, 18)
+                        .addComponent(tiposModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(placa, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cor))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(placa, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(mPlaca))
+                                .addGap(17, 17, 17)
+                                .addComponent(textoCor, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(modelo)
-                                    .addComponent(cor))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(textoCor)
-                                    .addComponent(tiposModelo, 0, 108, Short.MAX_VALUE))))))
-                .addContainerGap(172, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(textoPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addContainerGap(34, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(placa, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                    .addComponent(textoPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(modelo)
-                    .addComponent(tiposModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
+                    .addComponent(tiposModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(modelo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cor)
-                    .addComponent(textoCor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(56, 56, 56)
+                    .addComponent(textoCor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cor))
+                .addGap(42, 42, 42)
                 .addComponent(registrar)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addGap(51, 51, 51))
         );
+
+        tiposModelo.getAccessibleContext().setAccessibleParent(tiposModelo);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tiposModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tiposModeloActionPerformed
+    private void textoPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoPlacaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textoPlacaActionPerformed
+
+    private void registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarActionPerformed
+        // AÇÃO DO BOTÃO REGISTRAR
         
+        String placa1 = textoPlaca.getText(); // pega placa escrita
+        String modelo1 = (String) tiposModelo.getSelectedItem(); // converte em string o item selecionado
+        String cor1 = textoCor.getText(); // pega cor escrita
+        System.out.println(placa1+" "+modelo1+" "+cor1);
+        
+       BD registra = new BD (); // cria objeto BD
+       //registra.setEstacionado(modelo1, placa1, cor1); // insere carro estacionado
+        
+        //System.exit(0); // sair do programa
+    }//GEN-LAST:event_registrarActionPerformed
+
+    private void tiposModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tiposModeloActionPerformed
+
     }//GEN-LAST:event_tiposModeloActionPerformed
 
-    
+   
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -133,13 +181,14 @@ public class RegistraEntrada extends javax.swing.JFrame {
             }
         });
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel cor;
-    private javax.swing.JFormattedTextField mPlaca;
     private javax.swing.JLabel modelo;
     private javax.swing.JLabel placa;
     private javax.swing.JButton registrar;
     private javax.swing.JTextField textoCor;
+    private javax.swing.JFormattedTextField textoPlaca;
     private javax.swing.JComboBox tiposModelo;
     // End of variables declaration//GEN-END:variables
 }
