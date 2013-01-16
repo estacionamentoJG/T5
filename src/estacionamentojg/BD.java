@@ -59,7 +59,8 @@ public class BD {
     
     public void setEstacionado(String modelo, String placa, String cor) {
         try {
-            ResultSet rs = conecta().executeQuery("INSERT INTO estacionados(placa, modelo, cor) VALUES " +  placa + " " + modelo + " " + cor + ";"); // pega modelos em ordem alfabética
+            ResultSet rs = conecta().executeQuery("INSERT INTO estacionados (placa, modelo, cor) VALUES ('"+ placa +"', '"+ modelo +"', '"+ cor +"');"); // insere carro estacionado
+            System.out.println(rs.getString("modelo"));
             pegaConexao().close();
         } catch (Exception e) {
             e.printStackTrace();
