@@ -35,13 +35,7 @@ public class BD {
         }
     }
     
-    public void setEstacionado(String modelo, String placa, String cor) {
-        try {
-            ResultSet rs = conecta().executeQuery("INSERT INTO estacionados(placa, modelo, cor) VALUES " +  placa + " " + modelo + " " + cor + ";"); // pega modelos em ordem alfabética
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+    
 
     
     public ArrayList getModelos() {
@@ -60,6 +54,15 @@ public class BD {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+    
+    public void setEstacionado(String modelo, String placa, String cor) {
+        try {
+            ResultSet rs = conecta().executeQuery("INSERT INTO estacionados(placa, modelo, cor) VALUES " +  placa + " " + modelo + " " + cor + ";"); // pega modelos em ordem alfabética
+            pegaConexao().close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

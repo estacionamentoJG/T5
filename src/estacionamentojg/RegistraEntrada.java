@@ -139,8 +139,8 @@ public class RegistraEntrada extends javax.swing.JFrame {
         String cor1 = textoCor.getText(); // pega cor escrita
         System.out.println(placa1+" "+modelo1+" "+cor1);
         
-       BD registra = new BD (); // cria objeto BD
-       //registra.setEstacionado(modelo1, placa1, cor1); // insere carro estacionado
+        BD registra = new BD (); // cria objeto BD
+        //registra.setEstacionado(modelo1, placa1, cor1); // insere carro estacionado
         
         //System.exit(0); // sair do programa
     }//GEN-LAST:event_registrarActionPerformed
