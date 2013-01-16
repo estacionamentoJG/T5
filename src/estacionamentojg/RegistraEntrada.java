@@ -1,44 +1,48 @@
 package estacionamentojg;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JComboBox;
 import javax.swing.text.MaskFormatter;
 import javax.swing.JFormattedTextField;
-
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 public class RegistraEntrada extends javax.swing.JFrame {
 
     MaskFormatter mPLACA = new MaskFormatter();
     BD c = new BD();
-    
+    Veiculo carro = new Veiculo();
+
     public RegistraEntrada() {
         initComponents();
+        setLocationRelativeTo(null); // coloca janela no centro da pagina 
         try {
-            mPLACA.setMask("UUU-####");
-            mPLACA.setPlaceholderCharacter('_');
-        }
-        catch(ParseException e) {
+            mPLACA.setMask("UUU-####"); // mascara para placa
+            mPLACA.setPlaceholderCharacter('_'); // caracter que fica ocupando o espaço
+        } catch (ParseException e) {
             e.printStackTrace();
         }
     }
 
-    
     @SuppressWarnings("unchecked")
-    
     private JComboBox addComboBox(ArrayList x) {
         JComboBox cb = new JComboBox(); // cria objeto JComboBox       
         String str; // inicia string
         ArrayList<String> listaModelos = x; // cria arrayList de strings
-        for(String n : listaModelos) {
+        for (String n : listaModelos) {
             str = n; // pega cada item
             cb.addItem(n);  // e add no JComboBox
         }
         return cb; // retorna JComboBox
     }
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jToggleButton1 = new javax.swing.JToggleButton();
         placa = new javax.swing.JLabel();
         modelo = new javax.swing.JLabel();
         cor = new javax.swing.JLabel();
@@ -46,15 +50,26 @@ public class RegistraEntrada extends javax.swing.JFrame {
         registrar = new javax.swing.JButton();
         tiposModelo = addComboBox(c.getModelos());
         textoPlaca = new JFormattedTextField(mPLACA);
+        jButton1 = new javax.swing.JButton();
+
+        jToggleButton1.setText("jToggleButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        placa.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         placa.setText("Placa");
 
+        modelo.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         modelo.setText("Modelo");
 
+        cor.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         cor.setText("Cor");
 
+        textoCor.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+
+        registrar.setBackground(new java.awt.Color(0, 102, 255));
+        registrar.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        registrar.setForeground(new java.awt.Color(255, 255, 255));
         registrar.setText("Registrar");
         registrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,15 +77,25 @@ public class RegistraEntrada extends javax.swing.JFrame {
             }
         });
 
+        tiposModelo.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         tiposModelo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tiposModeloActionPerformed(evt);
             }
         });
 
+        textoPlaca.setFont(new java.awt.Font("Calibri", 1, 48)); // NOI18N
         textoPlaca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoPlacaActionPerformed(evt);
+            }
+        });
+
+        jButton1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jButton1.setText("Cancelar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -78,48 +103,51 @@ public class RegistraEntrada extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(151, Short.MAX_VALUE)
-                .addComponent(registrar)
-                .addGap(159, 159, 159))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(modelo)
-                        .addGap(18, 18, 18)
-                        .addComponent(tiposModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(22, 22, 22)
+                        .addComponent(placa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textoPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(placa, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cor))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(modelo)
+                            .addComponent(cor, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(textoCor, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tiposModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(textoCor, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(textoPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(registrar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1)
+                                .addGap(24, 24, 24)))))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textoPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(placa, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(placa, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textoPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tiposModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tiposModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(modelo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoCor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textoCor, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cor))
-                .addGap(42, 42, 42)
-                .addComponent(registrar)
-                .addGap(51, 51, 51))
+                .addGap(46, 46, 46)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(registrar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addGap(22, 22, 22))
         );
 
         tiposModelo.getAccessibleContext().setAccessibleParent(tiposModelo);
@@ -133,48 +161,32 @@ public class RegistraEntrada extends javax.swing.JFrame {
 
     private void registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarActionPerformed
         // AÇÃO DO BOTÃO REGISTRAR
+
+        carro.setPlaca(textoPlaca.getText());// pega placa escrita
+        carro.setModelo((String) tiposModelo.getSelectedItem()); // converte em string o item selecionado
+        carro.setCor(textoCor.getText()); // pega cor escrita
+        System.out.println(carro.getPlaca() + " " + carro.getModelo() + " " + carro.getCor());
+
+        BD registra = new BD(); // cria objeto BD
+        Boolean result = registra.setEstacionado(carro.getModelo(), carro.getPlaca(), carro.getCor(), carro.getEntrada()); // insere carro estacionado
         
-        String placa1 = textoPlaca.getText(); // pega placa escrita
-        String modelo1 = (String) tiposModelo.getSelectedItem(); // converte em string o item selecionado
-        String cor1 = textoCor.getText(); // pega cor escrita
-        System.out.println(placa1+" "+modelo1+" "+cor1);
-        
-        BD registra = new BD (); // cria objeto BD
-        registra.setEstacionado(modelo1, placa1, cor1); // insere carro estacionado
-        
-        //System.exit(0); // sair do programa
+        if (result == true) {
+            JOptionPane.showMessageDialog(this, "Carro cadastrado com sucesso!"); // mensagem ao usuário
+            this.dispose();   // fechar janela
+        }
+        else
+            JOptionPane.showMessageDialog(this, "ERRO! Tente novamente."); // mensagem ao usuário
     }//GEN-LAST:event_registrarActionPerformed
 
     private void tiposModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tiposModeloActionPerformed
 
     }//GEN-LAST:event_tiposModeloActionPerformed
 
-   
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegistraEntrada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegistraEntrada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegistraEntrada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegistraEntrada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-        /* Create and display the form */
+    public void principal() {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new RegistraEntrada().setVisible(true);
@@ -182,8 +194,11 @@ public class RegistraEntrada extends javax.swing.JFrame {
         });
     }
     
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel cor;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel modelo;
     private javax.swing.JLabel placa;
     private javax.swing.JButton registrar;
