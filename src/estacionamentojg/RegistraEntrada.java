@@ -14,7 +14,7 @@ public class RegistraEntrada extends javax.swing.JFrame {
 
     MaskFormatter mPLACA = new MaskFormatter();
     BD c = new BD();
-    Veiculo carro = new Veiculo();
+    veiculo carro = new veiculo();
 
     public RegistraEntrada() {
         initComponents();

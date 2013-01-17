@@ -1,17 +1,17 @@
 package estacionamentojg;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class veiculo {
 
     private String placa;
     private String modelo;
     private String cor;
-    private ArrayList<String> modelos;
-
-    public veiculo() {
-        this.modelos = new ArrayList<>(100);
-    }
+    private Date datahoraINICIAL;
+    private Date datahoraFINAL;
+    private String datahoraINICIAL1;
+    private String datahoraFINAL1;
     
     public String getPlaca(){
         return placa;
@@ -33,17 +33,20 @@ public class veiculo {
         return cor;
     }
     
-    public void setCor(){
+    public void setCor(String cor){
         this.cor = cor;
     }
-
-    public ArrayList<String> getModelos (){
-        return modelos;
+    
+    public String getEntrada(){
+        datahoraINICIAL = new Date();
+        datahoraINICIAL1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(datahoraINICIAL);
+        return datahoraINICIAL1;
+    }
+    
+    public String getSaida(){
+        datahoraFINAL = new Date();
+        datahoraFINAL1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(datahoraFINAL);
+        return datahoraFINAL1;
     }
 
-    public void setModelos (ArrayList<String> modelos ){
-        this.modelos = modelos;
-    }
 }
-
-
