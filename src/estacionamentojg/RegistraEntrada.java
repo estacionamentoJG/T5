@@ -167,17 +167,22 @@ public class RegistraEntrada extends javax.swing.JFrame {
         carro.setPlaca(textoPlaca.getText());// pega placa escrita
         carro.setModelo((String) tiposModelo.getSelectedItem()); // converte em string o item selecionado
         carro.setCor(textoCor.getText()); // pega cor escrita
-        System.out.println(carro.getPlaca() + " " + carro.getModelo() + " " + carro.getCor());
+        //System.out.println(carro.getPlaca() + " " + carro.getModelo() + " " + carro.getCor());
 
         BD registra = new BD(); // cria objeto BD
         Boolean result = registra.setEstacionado(carro.getModelo(), carro.getPlaca(), carro.getCor(), carro.getEntrada()); // insere carro estacionado
         
         if (result == true) {
-            JOptionPane.showMessageDialog(this, "Carro cadastrado com sucesso!"); // mensagem ao usuário
+            Ticket ticket = new Ticket();
+            ticket.setModelo(carro.getModelo());
+            ticket.setPlaca(carro.getPlaca());
+            ticket.setCor(carro.getCor());
+            ticket.setDatahora(carro.getEntrada());
+            ticket.emite();
             this.dispose();   // fechar janela
         }
-        else
-            JOptionPane.showMessageDialog(this, "ERRO! Tente novamente."); // mensagem ao usuário
+        
+            
     }//GEN-LAST:event_registrarActionPerformed
 
     private void tiposModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tiposModeloActionPerformed
