@@ -46,7 +46,7 @@ public class Ticket extends javax.swing.JFrame {
 
     public void emite() {
         textoJLabel();
-        System.out.println(modelo);
+        //System.out.println(modelo);
         initComponents();
         setLocationRelativeTo(null);
         this.setVisible(true);
