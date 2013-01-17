@@ -34,7 +34,7 @@ public class RegistraSaida extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         placa = new JFormattedTextField(mPLACA);
-        emitir = new javax.swing.JButton();
+        encerrar = new javax.swing.JButton();
         cancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -49,13 +49,14 @@ public class RegistraSaida extends javax.swing.JFrame {
             }
         });
 
-        emitir.setBackground(new java.awt.Color(51, 153, 255));
-        emitir.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        emitir.setForeground(new java.awt.Color(255, 255, 255));
-        emitir.setText("Encerrar e emitir Ticket");
-        emitir.addActionListener(new java.awt.event.ActionListener() {
+        encerrar.setBackground(new java.awt.Color(51, 153, 255));
+        encerrar.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        encerrar.setForeground(new java.awt.Color(255, 255, 255));
+        encerrar.setText("Encerrar hospedagem de veículo");
+        encerrar.setToolTipText("");
+        encerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                emitirActionPerformed(evt);
+                encerrarActionPerformed(evt);
             }
         });
 
@@ -80,8 +81,8 @@ public class RegistraSaida extends javax.swing.JFrame {
                         .addComponent(placa, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 16, Short.MAX_VALUE)
-                        .addComponent(emitir)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(encerrar)
                         .addGap(36, 36, 36)
                         .addComponent(cancelar)
                         .addGap(53, 53, 53))))
@@ -95,7 +96,7 @@ public class RegistraSaida extends javax.swing.JFrame {
                     .addComponent(placa, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(emitir, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(encerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(57, 57, 57))
         );
@@ -103,7 +104,7 @@ public class RegistraSaida extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void emitirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emitirActionPerformed
+    private void encerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encerrarActionPerformed
         BD banco = new BD();
         if (banco.buscaPlaca(placa.getText()) == true)
             JOptionPane.showMessageDialog(this, "Carro encontrado com sucesso!"); // mensagem ao usuário
@@ -111,7 +112,7 @@ public class RegistraSaida extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "ERRO! Placa não registrada."); // mensagem ao usuário
         this.dispose();   // fechar janela
 
-    }//GEN-LAST:event_emitirActionPerformed
+    }//GEN-LAST:event_encerrarActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
         this.dispose(); // fecha janela
@@ -133,7 +134,7 @@ public class RegistraSaida extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelar;
-    private javax.swing.JButton emitir;
+    private javax.swing.JButton encerrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JFormattedTextField placa;
     // End of variables declaration//GEN-END:variables

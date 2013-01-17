@@ -66,8 +66,9 @@ public class BD {
     
     public Boolean buscaPlaca (String placa) {
         try {
+         System.out.println(placa);
          ResultSet rs = conecta().executeQuery("SELECT * FROM estacionados WHERE placa='"+ placa +"'");
-         System.out.println(rs);
+         System.out.println(rs.getString("modelo") + " - " + rs.getString("cor") + " - " + rs.getString("placa"));
          /*while (rs.next()) {
             System.out.println(rs.getString("modelo") + " - " + rs.getString("cor") + " - " + rs.getString("placa"));
          }*/

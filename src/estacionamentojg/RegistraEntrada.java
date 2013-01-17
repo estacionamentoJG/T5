@@ -32,10 +32,12 @@ public class RegistraEntrada extends javax.swing.JFrame {
         JComboBox cb = new JComboBox(); // cria objeto JComboBox       
         String str; // inicia string
         ArrayList<String> listaModelos = x; // cria arrayList de strings
+        cb.addItem("Escolha um modelo...");
         for (String n : listaModelos) {
             str = n; // pega cada item
             cb.addItem(n);  // e add no JComboBox
         }
+        cb.addItem("Outro");
         return cb; // retorna JComboBox
     }
 
