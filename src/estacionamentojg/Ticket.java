@@ -44,7 +44,7 @@ public class Ticket extends javax.swing.JFrame {
         jDatahora.setText(datahora);
     }
 
-    public void emite() {
+    public void emite() { // classe principal
         textoJLabel();
         //System.out.println(modelo);
         initComponents();
