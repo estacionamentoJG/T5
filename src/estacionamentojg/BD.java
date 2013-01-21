@@ -56,7 +56,7 @@ public class BD {
 
     public Boolean setEstacionado(String modelo, String placa, String cor, String entrada) { // insere no banco os carros que entraram no estacionamento
         try {
-            ResultSet rs = conecta().executeQuery("SELECT COUNT(*) FROM estacionados WHERE placa='"+placa+"' AND datahora_final IS NULL"); // conta vezes que o veiculo foi cadastrado e não saiu do estacionamento
+            ResultSet rs = conecta().executeQuery("SELECT COUNT(*) FROM estacionados WHERE placa='"+placa+"'"); // conta vezes que o veiculo foi cadastrado e não saiu do estacionamento
             int cont = 0;
             while (rs.next()) {
                 cont = rs.getInt(1); // pega valor de vezes que ocorre a placa sem saida
@@ -80,26 +80,25 @@ public class BD {
 
     public Boolean setEncerrado(String placa,String saida) { // insere no banco os carros que entraram no estacionamento
         try {
-            ResultSet rs = conecta().executeQuery("SELECT COUNT(*) FROM encerrados  WHERE placa='"+placa+"' "); // conta vezes que o veiculo foi cadastrado e não saiu do estacionamento
-            int cont = 0;
+            ResultSet rs = conecta().executeQuery("SELECT * FROM estacionados WHERE placa='"+placa+"' "); // conta vezes que o veiculo foi cadastrado e não saiu do estacionamento
+            Timestamp entrada;
             while (rs.next()) {
-                cont = rs.getInt(1); // pega valor de vezes que ocorre a placa sem saida
-                //System.out.println(cont);
+                entrada = rs.getTimestamp("datahora_inicial"); // pega valor de vezes que ocorre a placa sem saida
+                //System.out.println(entrada + " , " + saida);
             }
-            if (cont == 0) { // se a placa ainda não foi cadastrada
-                conecta().execute("INSERT INTO encerrados (placa,datahora_final) VALUES ('" + placa + "', " + saida + "');"); // insere carro estacionado
-                pegaConexao().close();
-                JOptionPane.showMessageDialog(null, "Saida  registrada com sucesso!"); // mensagem ao usuário
-                return true;
-            } else {
-                JOptionPane.showMessageDialog(null, "ERRO! Carro já saiu do estacionamento."); // mensagem ao usuário
-                return false;
-            }
+            
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "ERRO! Tente novamente."); // mensagem ao usuário
             return false;
         }
+    }
+    
+    public Double calculaValor() {
+        double a = 1.1;
+        
+        return a;
     }
     
     
