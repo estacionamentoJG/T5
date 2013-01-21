@@ -90,8 +90,9 @@ public class BD {
             }
             if (cont != 0) {
                 Valores valor = new Valores();
-                Double preco = valor.total(entrada, saida);
-                conecta().execute("INSERT INTO encerrados (placa, datahora_inicial, datahora_final, valor) VALUES ('" + placa + "', '" + entrada + "', '" + saida + "', '" + preco + "');"); // insere carro estacionado
+                Double preco = 2.0;//valor.total(entrada, saida);
+                conecta().execute("INSERT INTO encerrados (placa, datahora_inicial, datahora_final, valor) VALUES ('" + placa + "', '" + entrada + "', '" + saida + "', '" + preco + "');"); // insere carro encerrado
+                conecta().execute("DELETE FROM estacionados WHERE placa = '"+ placa + "'"); // deleta carro estacionado
                 return true;
             }
             else {
