@@ -78,6 +78,31 @@ public class BD {
         }
     }
 
+    public Boolean setEncerrado(String placa,String saida) { // insere no banco os carros que entraram no estacionamento
+        try {
+            ResultSet rs = conecta().executeQuery("SELECT COUNT(*) FROM encerrados  WHERE placa='"+placa+"' "); // conta vezes que o veiculo foi cadastrado e não saiu do estacionamento
+            int cont = 0;
+            while (rs.next()) {
+                cont = rs.getInt(1); // pega valor de vezes que ocorre a placa sem saida
+                //System.out.println(cont);
+            }
+            if (cont == 0) { // se a placa ainda não foi cadastrada
+                conecta().execute("INSERT INTO encerrados (placa,datahora_final) VALUES ('" + placa + "', " + saida + "');"); // insere carro estacionado
+                pegaConexao().close();
+                JOptionPane.showMessageDialog(null, "Saida  registrada com sucesso!"); // mensagem ao usuário
+                return true;
+            } else {
+                JOptionPane.showMessageDialog(null, "ERRO! Carro já saiu do estacionamento."); // mensagem ao usuário
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "ERRO! Tente novamente."); // mensagem ao usuário
+            return false;
+        }
+    }
+    
+    
     public Boolean buscaPlaca(String placa) {
         try {
             ResultSet rs = conecta().executeQuery("SELECT * FROM estacionados WHERE placa='" + placa + "'");

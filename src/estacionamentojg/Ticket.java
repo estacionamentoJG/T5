@@ -51,7 +51,7 @@ public class Ticket extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.setVisible(true);
         this.setSize(250, 300);
-
+        this.dispose();
     }
 
     @SuppressWarnings("unchecked")

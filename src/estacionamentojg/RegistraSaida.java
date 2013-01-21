@@ -105,13 +105,20 @@ public class RegistraSaida extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void encerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encerrarActionPerformed
-        BD banco = new BD();
-        if (banco.buscaPlaca(placa.getText()) == true)
-            JOptionPane.showMessageDialog(this, "Carro encontrado com sucesso!"); // mensagem ao usuário
-        else
-            JOptionPane.showMessageDialog(this, "ERRO! Placa não registrada."); // mensagem ao usuário
-        this.dispose();   // fechar janela
-
+        Veiculo carro = new Veiculo();
+        BD registra = new BD(); // cria objeto BD
+        carro.setPlaca(placa.getText());// pega placa escrita
+        
+        //System.out.println(carro.getPlaca() + " " + carro.getModelo() + " " + carro.getCor());
+        Boolean result = registra.setEncerrado(carro.getPlaca(),carro.getSaida()); // insere carro encerrado
+        if (result == true) {
+            Ticket ticket = new Ticket();
+            ticket.setPlaca(carro.getPlaca());
+            ticket.setDatahora(carro.getSaida());
+            ticket.emite();
+            this.dispose();   // fechar janela
+        }
+        
     }//GEN-LAST:event_encerrarActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
