@@ -54,7 +54,7 @@ public class BD {
         }
     }
 
-    public Boolean setEstacionado(String modelo, String placa, String cor, String entrada) { // insere no banco os carros que entraram no estacionamento
+    public Boolean setEstacionado(String modelo, String placa, String cor, Timestamp entrada) { // insere no banco os carros que entraram no estacionamento
         try {
             ResultSet rs = conecta().executeQuery("SELECT COUNT(*) FROM estacionados WHERE placa='"+placa+"'"); // conta vezes que o veiculo foi cadastrado e não saiu do estacionamento
             int cont = 0;
@@ -78,16 +78,26 @@ public class BD {
         }
     }
 
-    public Boolean setEncerrado(String placa,String saida) { // insere no banco os carros que entraram no estacionamento
+    public Boolean setEncerrado(String placa,Timestamp saida) { // insere no banco os carros que entraram no estacionamento
         try {
             ResultSet rs = conecta().executeQuery("SELECT * FROM estacionados WHERE placa='"+placa+"' "); // conta vezes que o veiculo foi cadastrado e não saiu do estacionamento
-            Timestamp entrada;
+            Timestamp entrada = null;
+            int cont = 0;
             while (rs.next()) {
                 entrada = rs.getTimestamp("datahora_inicial"); // pega valor de vezes que ocorre a placa sem saida
                 //System.out.println(entrada + " , " + saida);
+                cont++;
             }
-            
-            return true;
+            if (cont != 0) {
+                Valores valor = new Valores();
+                Double preco = valor.total(entrada, saida);
+                conecta().execute("INSERT INTO encerrados (placa, datahora_inicial, datahora_final, valor) VALUES ('" + placa + "', '" + entrada + "', '" + saida + "', '" + preco + "');"); // insere carro estacionado
+                return true;
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "ERRO! Placa não cadastrada."); // mensagem ao usuário
+                return false;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "ERRO! Tente novamente."); // mensagem ao usuário

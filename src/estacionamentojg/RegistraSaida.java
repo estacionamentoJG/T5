@@ -112,10 +112,7 @@ public class RegistraSaida extends javax.swing.JFrame {
         //System.out.println(carro.getPlaca() + " " + carro.getModelo() + " " + carro.getCor());
         Boolean result = registra.setEncerrado(carro.getPlaca(),carro.getSaida()); // insere carro encerrado
         if (result == true) {
-            Ticket ticket = new Ticket();
-            ticket.setPlaca(carro.getPlaca());
-            ticket.setDatahora(carro.getSaida());
-            ticket.emite();
+            
             this.dispose();   // fechar janela
         }
         

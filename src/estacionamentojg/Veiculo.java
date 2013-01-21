@@ -1,6 +1,6 @@
 package estacionamentojg;
 
-import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Veiculo {
@@ -8,10 +8,8 @@ public class Veiculo {
     private String placa;
     private String modelo;
     private String cor;
-    private Date datahoraINICIAL;
-    private Date datahoraFINAL;
-    private String datahoraINICIAL1;
-    private String datahoraFINAL1;
+    private Timestamp datahoraINICIAL;
+    private Timestamp datahoraFINAL;
     
     public String getPlaca(){
         return placa;
@@ -37,16 +35,16 @@ public class Veiculo {
         this.cor = cor;
     }
     
-    public String getEntrada(){
-        datahoraINICIAL = new Date();
-        datahoraINICIAL1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(datahoraINICIAL);
-        return datahoraINICIAL1;
+    public Timestamp getEntrada(){
+        Date entrada = new Date();
+        datahoraINICIAL = new Timestamp(entrada.getTime());
+        return datahoraINICIAL;
     }
     
-    public String getSaida(){
-        datahoraFINAL = new Date();
-        datahoraFINAL1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(datahoraFINAL);
-        return datahoraFINAL1;
+    public Timestamp getSaida(){
+        Date saida = new Date();
+        datahoraFINAL = new Timestamp(saida.getTime());
+        return datahoraFINAL;
     }
 
 }
