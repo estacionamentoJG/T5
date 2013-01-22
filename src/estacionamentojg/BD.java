@@ -54,16 +54,16 @@ public class BD {
         }
     }
 
-    public Boolean setEstacionado(String modelo, String placa, String cor, Timestamp entrada) { // insere no banco os carros que entraram no estacionamento
+    public Boolean Estacionado(String modelo, String placa, String cor, Timestamp entrada, String dia) { // insere no banco os carros que entraram no estacionamento
         try {
-            ResultSet rs = conecta().executeQuery("SELECT COUNT(*) FROM estacionados WHERE placa='"+placa+"'"); // conta vezes que o veiculo foi cadastrado e não saiu do estacionamento
+            ResultSet rs = conecta().executeQuery("SELECT COUNT(*) FROM estacionados WHERE placa='" + placa + "'"); // conta vezes que o veiculo foi cadastrado e não saiu do estacionamento
             int cont = 0;
             while (rs.next()) {
                 cont = rs.getInt(1); // pega valor de vezes que ocorre a placa sem saida
                 //System.out.println(cont);
             }
             if (cont == 0) { // se a placa ainda não foi cadastrada
-                conecta().execute("INSERT INTO estacionados (placa, modelo, cor, datahora_inicial) VALUES ('" + placa + "', '" + modelo + "', '" + cor + "', '" + entrada + "');"); // insere carro estacionado
+                conecta().execute("INSERT INTO estacionados (placa, modelo, cor, datahora_inicial, dia) VALUES ('" + placa + "', '" + modelo + "', '" + cor + "', '" + entrada + "', '" + dia + "');"); // insere carro estacionado
                 pegaConexao().close();
                 JOptionPane.showMessageDialog(null, "Carro cadastrado com sucesso!"); // mensagem ao usuário
                 return true;
@@ -78,23 +78,28 @@ public class BD {
         }
     }
 
-    public Boolean setEncerrado(String placa,Timestamp saida) { // insere no banco os carros que entraram no estacionamento
+    public Boolean Encerrado(String placa, Timestamp saida, String diaSaida) { // insere no banco os carros que entraram no estacionamento
         try {
-            ResultSet rs = conecta().executeQuery("SELECT * FROM estacionados WHERE placa='"+placa+"' "); // conta vezes que o veiculo foi cadastrado e não saiu do estacionamento
+            ResultSet rs = conecta().executeQuery("SELECT * FROM estacionados WHERE placa='" + placa + "' "); // conta vezes que o veiculo foi cadastrado e não saiu do estacionamento
             Timestamp entrada = null;
+            String diaEntrada  = null;
             int cont = 0;
+            
             while (rs.next()) {
-                entrada = rs.getTimestamp("datahora_inicial"); // pega valor de vezes que ocorre a placa sem saida
-                //System.out.println(entrada + " , " + saida);
-                cont++;
+                entrada = rs.getTimestamp("datahora_inicial"); // pega Timestamp de entrada da placa
+                diaEntrada = rs.getString("dia");
+                cont++; // pega valor de vezes que ocorre a placa sem saida
             }
-            if (cont != 0) {
+            
+            if (cont != 0) { // se placa está cadastrada
                 Valores valor = new Valores();
-                Double preco = 2.0;//valor.total(entrada, saida);
+                Double preco = valor.total(entrada, saida, diaEntrada, diaSaida);
+                JOptionPane.showMessageDialog(null, "Preço total: " + preco); // mensagem ao usuário
                 conecta().execute("INSERT INTO encerrados (placa, datahora_inicial, datahora_final, valor) VALUES ('" + placa + "', '" + entrada + "', '" + saida + "', '" + preco + "');"); // insere carro encerrado
-                conecta().execute("DELETE FROM estacionados WHERE placa = '"+ placa + "'"); // deleta carro estacionado
+                conecta().execute("DELETE FROM estacionados WHERE placa = '" + placa + "'"); // deleta carro estacionado
                 return true;
-            }
+            } 
+            
             else {
                 JOptionPane.showMessageDialog(null, "ERRO! Placa não cadastrada."); // mensagem ao usuário
                 return false;
@@ -105,14 +110,7 @@ public class BD {
             return false;
         }
     }
-    
-    public Double calculaValor() {
-        double a = 1.1;
-        
-        return a;
-    }
-    
-    
+
     public Boolean buscaPlaca(String placa) {
         try {
             ResultSet rs = conecta().executeQuery("SELECT * FROM estacionados WHERE placa='" + placa + "'");

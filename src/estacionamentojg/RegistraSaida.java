@@ -108,14 +108,15 @@ public class RegistraSaida extends javax.swing.JFrame {
         Veiculo carro = new Veiculo();
         BD registra = new BD(); // cria objeto BD
         carro.setPlaca(placa.getText());// pega placa escrita
-        
+        carro.setSaida();
+        carro.getSaida(); // inicia data e hora de saida
+
         //System.out.println(carro.getPlaca() + " " + carro.getModelo() + " " + carro.getCor());
-        Boolean result = registra.setEncerrado(carro.getPlaca(),carro.getSaida()); // insere carro encerrado
+        Boolean result = registra.Encerrado(carro.getPlaca(), carro.getSaida(), carro.diaDaSemanaFinal()); // insere carro encerrado no BD
         if (result == true) {
-            
             this.dispose();   // fechar janela
         }
-        
+
     }//GEN-LAST:event_encerrarActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed

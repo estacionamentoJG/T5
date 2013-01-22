@@ -10,6 +10,7 @@ public class Ticket extends javax.swing.JFrame {
     private String placa;
     private String cor;
     private String data;
+    private String dia;
     private Timestamp datahora;
     private JLabel jModelo = new javax.swing.JLabel();
     private JLabel jPlaca = new javax.swing.JLabel();
@@ -28,13 +29,16 @@ public class Ticket extends javax.swing.JFrame {
         this.cor = cor;
     }
     
+    public void setDia(String dia) {
+        this.dia = dia;
+    }
+    
     public void setDatahora(Timestamp datahora) {
         this.datahora = datahora;
     }
     
-    public String timestampToString(Timestamp datahora) {
-        this.data = "" + datahora + "";
-        System.out.println(this.data);
+    public String timestampToString() {
+        this.data = "" + this.datahora;
         return this.data;
     }
 
@@ -49,7 +53,8 @@ public class Ticket extends javax.swing.JFrame {
         jCor.setText(cor);
 
         jDatahora.setFont(new java.awt.Font("Calibri", 0, 18));
-        jDatahora.setText(timestampToString(datahora));
+        jDatahora.setText(timestampToString() + " " + this.dia);
+        System.out.println(this.dia);
     }
 
     public void emite() { // classe principal
@@ -128,7 +133,7 @@ public class Ticket extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addComponent(jLabel5))
@@ -152,7 +157,7 @@ public class Ticket extends javax.swing.JFrame {
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(fechar)))))
-                .addContainerGap(466, Short.MAX_VALUE))
+                .addContainerGap(418, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
