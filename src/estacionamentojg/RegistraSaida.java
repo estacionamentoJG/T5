@@ -112,7 +112,7 @@ public class RegistraSaida extends javax.swing.JFrame {
         carro.getSaida(); // inicia data e hora de saida
 
         //System.out.println(carro.getPlaca() + " " + carro.getModelo() + " " + carro.getCor());
-        Boolean result = registra.Encerrado(carro.getPlaca(), carro.getSaida(), carro.diaDaSemanaFinal()); // insere carro encerrado no BD
+        Boolean result = registra.Encerrado(carro.getPlaca(), carro.getSaida()); // insere carro encerrado no BD
         if (result == true) {
             this.dispose();   // fechar janela
         }

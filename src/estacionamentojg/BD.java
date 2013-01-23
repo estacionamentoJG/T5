@@ -78,7 +78,7 @@ public class BD {
         }
     }
 
-    public Boolean Encerrado(String placa, Timestamp saida, String diaSaida) { // insere no banco os carros que entraram no estacionamento
+    public Boolean Encerrado(String placa, Timestamp saida) { // insere no banco os carros que entraram no estacionamento
         try {
             ResultSet rs = conecta().executeQuery("SELECT * FROM estacionados WHERE placa='" + placa + "' "); // conta vezes que o veiculo foi cadastrado e não saiu do estacionamento
             Timestamp entrada = null;
@@ -93,7 +93,7 @@ public class BD {
             
             if (cont != 0) { // se placa está cadastrada
                 Valores valor = new Valores();
-                Double preco = valor.total(entrada, saida, diaEntrada, diaSaida);
+                Double preco = valor.total(entrada, saida, diaEntrada);
                 JOptionPane.showMessageDialog(null, "Preço total: " + preco); // mensagem ao usuário
                 conecta().execute("INSERT INTO encerrados (placa, datahora_inicial, datahora_final, valor) VALUES ('" + placa + "', '" + entrada + "', '" + saida + "', '" + preco + "');"); // insere carro encerrado
                 conecta().execute("DELETE FROM estacionados WHERE placa = '" + placa + "'"); // deleta carro estacionado
@@ -119,7 +119,7 @@ public class BD {
                 //System.out.println(rs.getString("modelo") + " - " + rs.getString("cor") + " - " + rs.getString("placa"));
                 achou = rs.getString("placa");
             }
-            System.out.println(achou);
+            //System.out.println(achou);
             pegaConexao().close();
             if (achou != null) {
                 return true;

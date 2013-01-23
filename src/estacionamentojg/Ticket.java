@@ -54,7 +54,7 @@ public class Ticket extends javax.swing.JFrame {
 
         jDatahora.setFont(new java.awt.Font("Calibri", 0, 18));
         jDatahora.setText(timestampToString() + " " + this.dia);
-        System.out.println(this.dia);
+        //System.out.println(this.dia);
     }
 
     public void emite() { // classe principal
