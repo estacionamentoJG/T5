@@ -24,7 +24,7 @@ public class PrecoTotal extends javax.swing.JFrame {
     
     public void textoJLabel(Double preco) {
         
-        String precoTotal = "R$ " + preco + "0";
+        String precoTotal = "R$ " + preco + "0"; // string de preco
         
         jPreco.setFont(new java.awt.Font("Calibri", 1, 30));
         jPreco.setText(precoTotal);
