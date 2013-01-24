@@ -78,7 +78,7 @@ public class BD {
         }
     }
 
-    public Boolean Encerrado(String placa, Timestamp saida, String diaSaida) { // insere no banco os carros que entraram no estacionamento
+    public Boolean Encerrado(String placa, Timestamp saida) { // insere no banco os carros que entraram no estacionamento
         try {
             ResultSet rs = conecta().executeQuery("SELECT * FROM estacionados WHERE placa='" + placa + "' "); // conta vezes que o veiculo foi cadastrado e não saiu do estacionamento
             Timestamp entrada = null;
@@ -87,14 +87,13 @@ public class BD {
             
             while (rs.next()) {
                 entrada = rs.getTimestamp("datahora_inicial"); // pega Timestamp de entrada da placa
-                diaEntrada = rs.getString("dia");
                 cont++; // pega valor de vezes que ocorre a placa sem saida
             }
             
             if (cont != 0) { // se placa está cadastrada
                 Valores valor = new Valores();
-                Double preco = valor.total(entrada, saida, diaEntrada, diaSaida);
-                JOptionPane.showMessageDialog(null, "Preço total: " + preco); // mensagem ao usuário
+                Double preco = valor.total(entrada, saida);
+                new PrecoTotal(preco);
                 conecta().execute("INSERT INTO encerrados (placa, datahora_inicial, datahora_final, valor) VALUES ('" + placa + "', '" + entrada + "', '" + saida + "', '" + preco + "');"); // insere carro encerrado
                 conecta().execute("DELETE FROM estacionados WHERE placa = '" + placa + "'"); // deleta carro estacionado
                 return true;

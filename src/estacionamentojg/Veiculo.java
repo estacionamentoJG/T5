@@ -58,14 +58,8 @@ public class Veiculo {
     }
 
     public String diaDaSemanaInicial() {
-        Locale local1 = new Locale("pt", "BR"); // transforma para Português, Brasil
-        String dia = new SimpleDateFormat("EEE", local1).format(dataInicial);
-        return dia;
-    }
-
-    public String diaDaSemanaFinal() {
-        Locale local1 = new Locale("pt", "BR"); // transforma para Português, Brasil
-        String dia = new SimpleDateFormat("EEE", local1).format(dataFinal);
+        Locale local1 = new Locale("pt", "BR"); // transforma para Português o dia da semana, Brasil
+        String dia = new SimpleDateFormat("EEE", local1).format(dataInicial); // pega a string do dia da semana
         return dia;
     }
 }
