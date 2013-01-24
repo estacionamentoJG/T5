@@ -78,6 +78,6 @@ public class Valores {
             //System.out.println("preco total: " + precoTotal);
         }
 
-        return precoTotal;
+        return precoTotal; // retorna preco total
     }
 }

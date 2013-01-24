@@ -92,8 +92,10 @@ public class BD {
             
             if (cont != 0) { // se placa está cadastrada
                 Valores valor = new Valores();
+
                 Double preco = valor.total(entrada, saida);
                 new PrecoTotal(preco);
+
                 conecta().execute("INSERT INTO encerrados (placa, datahora_inicial, datahora_final, valor) VALUES ('" + placa + "', '" + entrada + "', '" + saida + "', '" + preco + "');"); // insere carro encerrado
                 conecta().execute("DELETE FROM estacionados WHERE placa = '" + placa + "'"); // deleta carro estacionado
                 return true;
@@ -118,7 +120,7 @@ public class BD {
                 //System.out.println(rs.getString("modelo") + " - " + rs.getString("cor") + " - " + rs.getString("placa"));
                 achou = rs.getString("placa");
             }
-            System.out.println(achou);
+            //System.out.println(achou);
             pegaConexao().close();
             if (achou != null) {
                 return true;
