@@ -8,11 +8,16 @@ import java.util.Locale;
 public class Valores {
     
     private Double precoNormal = 1.0;
-    private Double primeiraHora = 1.0;
+    private Double primeiraHora;
     private Double precoDomingo = 3.0;
     private Double precoTotal = 0.0;
 
-    public Double total(Timestamp ent, Timestamp sai) {
+    public Double total(Timestamp ent, Timestamp sai, Boolean promocao) {
+        
+        if (promocao == true)
+            this.primeiraHora = 0.0;
+        else
+            this.primeiraHora = 1.0;
         
         Calendar entrada = Calendar.getInstance();
         entrada.setTime(ent);

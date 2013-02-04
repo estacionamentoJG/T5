@@ -54,7 +54,7 @@ public class BD {
         }
     }
 
-    public Boolean Estacionado(String modelo, String placa, String cor, Timestamp entrada, String dia) { // insere no banco os carros que entraram no estacionamento
+    public Boolean Estacionado(String modelo, String placa, String cor, Timestamp entrada, String dia, Boolean promocao) { // insere no banco os carros que entraram no estacionamento
         try {
             ResultSet rs = conecta().executeQuery("SELECT COUNT(*) FROM estacionados WHERE placa='" + placa + "'"); // conta vezes que o veiculo foi cadastrado e não saiu do estacionamento
             int cont = 0;
@@ -63,7 +63,7 @@ public class BD {
                 //System.out.println(cont);
             }
             if (cont == 0) { // se a placa ainda não foi cadastrada
-                conecta().execute("INSERT INTO estacionados (placa, modelo, cor, datahora_inicial, dia) VALUES ('" + placa + "', '" + modelo + "', '" + cor + "', '" + entrada + "', '" + dia + "');"); // insere carro estacionado
+                conecta().execute("INSERT INTO estacionados (placa, modelo, cor, datahora_inicial, dia, promocao) VALUES ('" + placa + "', '" + modelo + "', '" + cor + "', '" + entrada + "', '" + dia + "', '" + promocao + "');"); // insere carro estacionado
                 pegaConexao().close();
                 JOptionPane.showMessageDialog(null, "Carro cadastrado com sucesso!"); // mensagem ao usuário
                 return true;
@@ -83,17 +83,20 @@ public class BD {
             ResultSet rs = conecta().executeQuery("SELECT * FROM estacionados WHERE placa='" + placa + "' "); // conta vezes que o veiculo foi cadastrado e não saiu do estacionamento
             Timestamp entrada = null;
             String diaEntrada  = null;
+            Boolean promocao = false;
             int cont = 0;
             
             while (rs.next()) {
                 entrada = rs.getTimestamp("datahora_inicial"); // pega Timestamp de entrada da placa
+                promocao = rs.getBoolean("promocao");
                 cont++; // pega valor de vezes que ocorre a placa sem saida
             }
+            System.out.println(promocao);
             
             if (cont != 0) { // se placa está cadastrada
                 Valores valor = new Valores();
 
-                Double preco = valor.total(entrada, saida);
+                Double preco = valor.total(entrada, saida, promocao);
                 new PrecoTotal(preco);
 
                 conecta().execute("INSERT INTO encerrados (placa, datahora_inicial, datahora_final, valor) VALUES ('" + placa + "', '" + entrada + "', '" + saida + "', '" + preco + "');"); // insere carro encerrado
