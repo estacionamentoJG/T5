@@ -85,6 +85,7 @@ public class Ticket extends javax.swing.JFrame {
         fechar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Estacionamento JG - Ticket");
         setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N

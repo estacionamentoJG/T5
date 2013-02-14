@@ -104,7 +104,7 @@ public class BD {
                 new PrecoTotal(preco); // janela de preço
 
                 conecta().execute("INSERT INTO encerrados (placa, datahora_inicial, datahora_final, valor) VALUES ('" + placa + "', '" + entrada + "', '" + saida + "', '" + preco + "');"); // insere carro encerrado
-                //conecta().execute("DELETE FROM estacionados WHERE placa = '" + placa + "'"); // deleta carro estacionado
+                conecta().execute("DELETE FROM estacionados WHERE placa = '" + placa + "'"); // deleta carro estacionado
                 return true;
             } 
             

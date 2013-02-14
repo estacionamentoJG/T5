@@ -67,6 +67,7 @@ public class RegistraEntrada extends javax.swing.JFrame {
         jToggleButton1.setText("jToggleButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Estacionamento JG - Registro de Entrada");
 
         placa.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         placa.setText("Placa");

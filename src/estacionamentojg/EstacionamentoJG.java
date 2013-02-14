@@ -35,6 +35,7 @@ public class EstacionamentoJG extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Estacionamento JG");
 
         jButton1.setBackground(new java.awt.Color(153, 255, 153));
         jButton1.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
@@ -96,17 +97,18 @@ public class EstacionamentoJG extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        RegistraEntrada novo = new RegistraEntrada(this.primeiraHora, this.precoHora);
+        new RegistraEntrada(this.primeiraHora, this.precoHora);
         // ação do botão registrar veiculo instancia novo objeto da classe RegistraEntrada
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        RegistraSaida novo = new RegistraSaida();
-        novo.principal(); // ação do botão registrar veiculo instancia novo objeto da classe RegistraSaida
+        new RegistraSaida();
+        // ação do botão registrar veiculo instancia novo objeto da classe RegistraSaida
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        ManipulaValores manipula = new ManipulaValores();
+        new ManipulaValores();
+        this.dispose(); // fecha janela
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     

@@ -20,6 +20,7 @@ public class RegistraSaida extends javax.swing.JFrame {
     public RegistraSaida() {
         initComponents();
         setLocationRelativeTo(null); // coloca janela no centro da pagina 
+        setVisible(true);
         try {
             mPLACA.setMask("UUU-####"); // mascara para placa
             mPLACA.setPlaceholderCharacter('_'); // caracter que fica ocupando o espaço
@@ -38,6 +39,7 @@ public class RegistraSaida extends javax.swing.JFrame {
         cancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Estacionamento JG - Registro de Saída");
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabel1.setText("Placa");
@@ -127,16 +129,6 @@ public class RegistraSaida extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_placaActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public void principal() {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RegistraSaida().setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelar;
     private javax.swing.JButton encerrar;
