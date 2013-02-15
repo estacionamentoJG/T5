@@ -144,7 +144,6 @@ public class BD {
 
     public String relDiario(String diaTT) {
 
-        getData(diaTT);
 
         String total = "\n\n";
         Double valorTotal = 0.0;
@@ -200,24 +199,4 @@ public class BD {
         return null;
     }
 
-    private String getData(String data) {
-        String d = "";
-        System.out.println(data.charAt(3));
-
-        for (int i = 0; i < data.length(); i++) {
-            if (data.charAt(i) == '/') {
-                d += '.';
-            } else {
-                if (i == 0 || i == 3) {
-                    if (data.charAt(i) != '0') {
-                        d += data.charAt(i);
-                    }
-                } else {
-                    d += data.charAt(i);
-                }
-            }
-        }
-        System.out.println("aqui> " + d);
-        return d;
-    }
 }

@@ -17,18 +17,6 @@ public class GeraRelatorio {
     private String d = "Relatorios/Relatorios Diarios";
     private String m = "Relatorios/Relatorios Mensais";
 
-    GeraRelatorio(Character tipo) throws Exception {
-
-        switch (tipo) {
-            case 'D':
-                diario();
-                break;
-            case 'M':
-                mensal();
-                break;
-        }
-    }
-
     public void diario(String dia) throws Exception {
         criaDiretorio(r);
         criaDiretorio(d);
@@ -113,9 +101,5 @@ public class GeraRelatorio {
         //System.out.println(sData);
         return sData;
     }
-
-    public static void main(String[] args) throws Exception {
-        new GeraRelatorio('D');
-        //new GeraRelatorio('M');
-    }
+    
 }
