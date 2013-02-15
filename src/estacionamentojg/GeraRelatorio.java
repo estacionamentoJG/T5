@@ -29,23 +29,27 @@ public class GeraRelatorio {
         }
     }
 
-    public void diario() throws Exception {
+    public void diario(String dia) throws Exception {
         criaDiretorio(r);
         criaDiretorio(d);
         BD bd = new BD();
+   
+        String dados = bd.relDiario(dia);
         
-        String dados = "";
-        
-        geraPDF(d);
+        geraPDF(d, dados);
     }
 
     public void mensal() throws Exception {
         criaDiretorio(r);
         criaDiretorio(m);
-        geraPDF(m);
+        BD bd = new BD();
+        
+        String dados = bd.relMensal();
+
+        geraPDF(m, dados);
     }
 
-    public void geraPDF(String pasta) throws Exception {
+    public void geraPDF(String pasta, String dados) throws Exception {
         Document doc = null;
         OutputStream os = null;
         String a = null;
@@ -65,10 +69,11 @@ public class GeraRelatorio {
             PdfWriter.getInstance(doc, os); //associa a stream de saída ao
             doc.open(); //abre o documento
 
-
-
             Paragraph p = new Paragraph(a);
             doc.add(p);
+            
+            Paragraph dados1 = new Paragraph (dados);
+            doc.add(dados1);
 
         } finally {
             if (doc != null) {
@@ -111,6 +116,6 @@ public class GeraRelatorio {
 
     public static void main(String[] args) throws Exception {
         new GeraRelatorio('D');
-        new GeraRelatorio('M');
+        //new GeraRelatorio('M');
     }
 }

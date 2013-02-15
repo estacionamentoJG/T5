@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class BD {
 
@@ -83,11 +87,11 @@ public class BD {
         try {
             ResultSet rs = conecta().executeQuery("SELECT * FROM estacionados WHERE placa='" + placa + "' "); // conta vezes que o veiculo foi cadastrado e não saiu do estacionamento
             Timestamp entrada = null;
-            String diaEntrada  = null;
+            String diaEntrada = null;
             Double pP = null;
             Double pH = null;
             int cont = 0;
-            
+
             while (rs.next()) {
                 entrada = rs.getTimestamp("datahora_inicial"); // pega Timestamp de entrada da placa
                 pP = rs.getDouble("primeira_hora");
@@ -95,10 +99,10 @@ public class BD {
                 System.out.println("to aqui: " + pP + "        " + pH);
                 cont++; // pega valor de vezes que ocorre a placa sem saida
             }
-            
+
             if (cont != 0) { // se placa está cadastrada
                 Valores valor = new Valores(pP, pH);
-                
+
                 Double preco = valor.total(entrada, saida);
                 System.out.println(preco);
                 new PrecoTotal(preco); // janela de preço
@@ -106,9 +110,7 @@ public class BD {
                 conecta().execute("INSERT INTO encerrados (placa, datahora_inicial, datahora_final, valor) VALUES ('" + placa + "', '" + entrada + "', '" + saida + "', '" + preco + "');"); // insere carro encerrado
                 conecta().execute("DELETE FROM estacionados WHERE placa = '" + placa + "'"); // deleta carro estacionado
                 return true;
-            } 
-            
-            else {
+            } else {
                 JOptionPane.showMessageDialog(null, "ERRO! Placa não cadastrada."); // mensagem ao usuário
                 return false;
             }
@@ -139,14 +141,83 @@ public class BD {
             return false;
         }
     }
-    
-    public String relDiario() {
-        
+
+    public String relDiario(String diaTT) {
+
+        getData(diaTT);
+
+        String total = "\n\n";
+        Double valorTotal = 0.0;
+        Date data = new java.util.Date();
+        Timestamp dia = new Timestamp(data.getTime());
+
+        Calendar c1 = Calendar.getInstance();
+        Calendar c2 = Calendar.getInstance();
+        c1.setTime(dia);
+
+        String dataAtual = c1.get(Calendar.DAY_OF_MONTH) + "." + (c1.get(Calendar.MONTH) + 1) + "." + c1.get(Calendar.YEAR);
+        String dataBanco;
+        int cont = 0;
+
+        System.out.println(dataAtual);
+        /*System.out.println(c1.get(Calendar.DAY_OF_MONTH));
+         System.out.println(c1.get(Calendar.MONTH)+1); mes começa no 0
+         System.out.println(c1.get(Calendar.YEAR));*/
+
+        try {
+            ResultSet rs = conecta().executeQuery("SELECT * FROM encerrados;");
+            while (rs.next()) {
+                c2.setTime(rs.getTimestamp("datahora_final"));
+                dataBanco = c2.get(Calendar.DAY_OF_MONTH) + "." + (c2.get(Calendar.MONTH) + 1) + "." + c2.get(Calendar.YEAR);
+                if (dataBanco.equals(dataAtual)) {
+                    total += rs.getString("placa");
+                    total += "\t\t\t\t\t\t\t\t\t\t";
+                    total += rs.getTimestamp("datahora_inicial").toString();
+                    total += "\t\t\t\t\t\t\t\t\t\t";
+                    total += rs.getTimestamp("datahora_final").toString();
+                    total += "\t\t\t\t\t\t\t\t\t\t";
+                    total += "R$ " + String.format("%.2f", rs.getDouble("valor"));
+                    total += "\n";
+                    valorTotal += rs.getDouble("valor");
+                    cont++;
+                }
+            }
+
+            total += "\n\n";
+            total += "total de carros: " + cont;
+            total += "            ";
+            total += "valor total: R$ " + String.format("%.2f", valorTotal);;
+
+            return total;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String relMensal() {
+
         return null;
     }
-    
-    public String relMensal() {
-        
-        return null;
+
+    private String getData(String data) {
+        String d = "";
+        System.out.println(data.charAt(3));
+
+        for (int i = 0; i < data.length(); i++) {
+            if (data.charAt(i) == '/') {
+                d += '.';
+            } else {
+                if (i == 0 || i == 3) {
+                    if (data.charAt(i) != '0') {
+                        d += data.charAt(i);
+                    }
+                } else {
+                    d += data.charAt(i);
+                }
+            }
+        }
+        System.out.println("aqui> " + d);
+        return d;
     }
 }
