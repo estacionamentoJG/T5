@@ -39,10 +39,9 @@ public class BD {
         try {
             //System.out.println("listando os carros");
             ResultSet rs = conecta().executeQuery("SELECT * FROM carros ORDER BY modelo ASC;"); // pega modelos em ordem alfabética
-            ArrayList<String> dados = new ArrayList<String>();
+            ArrayList<String> dados = new ArrayList<>();
 
             while (rs.next()) {
-                //System.out.println(rs.getInt("id") + " - " + rs.getString("modelo"));
                 dados.add(rs.getString("modelo"));
             }
             pegaConexao().close();
@@ -113,7 +112,6 @@ public class BD {
                 return false;
             }
         } catch (Exception e) {
-            e.printStackTrace();
             JOptionPane.showMessageDialog(null, "ERRO! Tente novamente."); // mensagem ao usuário
             return false;
         }
@@ -135,7 +133,6 @@ public class BD {
                 return false;
             }
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
         }
     }
