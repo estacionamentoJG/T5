@@ -139,4 +139,14 @@ public class BD {
             return false;
         }
     }
+    
+    public String relDiario() {
+        
+        return null;
+    }
+    
+    public String relMensal() {
+        
+        return null;
+    }
 }
