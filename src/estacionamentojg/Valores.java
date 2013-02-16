@@ -86,10 +86,10 @@ public class Valores {
                     break;
                 }
             }
-            System.out.println(dias);
+            //System.out.println(dias);
             for (Double n : dias) { // todos os valores do arrrayList dias
                 this.precoTotal += n; // soma todos os valores do arraylist
-                System.out.println(precoTotal);
+                //System.out.println(precoTotal);
             }
 
         }

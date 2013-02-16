@@ -7,6 +7,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -28,7 +29,7 @@ public class GeraRelatorio {
         String dados = bd.relDiario(data);     
         if (dados != null) {
             String nomePDF = geraPDF(d, dados);
-            System.out.println(nomePDF);
+            //System.out.println(nomePDF);
             Desktop desktop = Desktop.getDesktop();
             desktop.open(new File(nomePDF)); // abrir pdf automaticamente
         }
@@ -43,10 +44,14 @@ public class GeraRelatorio {
         
         String dados = bd.relMensal(data);    
         if (dados != null) {
-            String nomePDF = geraPDF(d, dados);
-            Desktop desktop = Desktop.getDesktop();
-            desktop.open(new File(nomePDF)); // abrir pdf automaticamente
+            String nomePDF = geraPDF(m, dados);
+            abrePDF(nomePDF);
         }
+    }
+    
+    private void abrePDF(String nomePDF) throws IOException {
+        Desktop desktop = Desktop.getDesktop();
+        desktop.open(new File(nomePDF)); // abrir pdf automaticamente
     }
 
     private String geraPDF(String pasta, String dados) throws Exception {

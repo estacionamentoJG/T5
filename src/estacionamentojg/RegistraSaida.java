@@ -127,7 +127,7 @@ public class RegistraSaida extends javax.swing.JFrame {
             }
         }
         else
-            JOptionPane.showMessageDialog(null, "Erro, placa inválida.");
+            JOptionPane.showMessageDialog(null, "Erro, placa inválida.", "Erro", JOptionPane.ERROR_MESSAGE);
 
     }//GEN-LAST:event_encerrarActionPerformed
 

@@ -214,7 +214,7 @@ public class RegistraEntrada extends javax.swing.JFrame {
             }
         }
         else
-            JOptionPane.showMessageDialog(null, "Erro, tente novamente.");
+            JOptionPane.showMessageDialog(null, "Erro, tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_registrarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

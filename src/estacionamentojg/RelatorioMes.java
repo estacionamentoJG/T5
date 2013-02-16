@@ -21,7 +21,7 @@ public class RelatorioMes extends javax.swing.JFrame {
             mMesAno.setPlaceholderCharacter('_'); // caracter que fica ocupando o espaço
         } catch (ParseException e) {
             e.printStackTrace();
-        }   
+        }  
     }
 
     @SuppressWarnings("unchecked")

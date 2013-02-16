@@ -164,7 +164,7 @@ public class ManipulaValores extends javax.swing.JFrame {
             this.dispose();
         }
         else
-            JOptionPane.showMessageDialog(null, "Erro, campo vazio/zerado.");
+            JOptionPane.showMessageDialog(null, "Erro, campo vazio/zerado.", "Erro", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

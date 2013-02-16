@@ -72,12 +72,12 @@ public class BD {
                 JOptionPane.showMessageDialog(null, "Carro cadastrado com sucesso!"); // mensagem ao usuário
                 return true;
             } else {
-                JOptionPane.showMessageDialog(null, "ERRO! Carro já cadastrado."); // mensagem ao usuário
+                JOptionPane.showMessageDialog(null, "ERRO! Carro já cadastrado.", "Erro", JOptionPane.ERROR_MESSAGE); // mensagem ao usuário
                 return false;
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "ERRO! Tente novamente."); // mensagem ao usuário
+            JOptionPane.showMessageDialog(null, "ERRO! Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE); // mensagem ao usuário
             return false;
         }
     }
@@ -95,7 +95,7 @@ public class BD {
                 entrada = rs.getTimestamp("datahora_inicial"); // pega Timestamp de entrada da placa
                 pP = rs.getDouble("primeira_hora");
                 pH = rs.getDouble("preco_hora");
-                System.out.println("to aqui: " + pP + "        " + pH);
+                //System.out.println("to aqui: " + pP + "        " + pH);
                 cont++; // pega valor de vezes que ocorre a placa sem saida
             }
 
@@ -103,18 +103,18 @@ public class BD {
                 Valores valor = new Valores(pP, pH);
 
                 Double preco = valor.total(entrada, saida);
-                System.out.println(preco);
+                //System.out.println(preco);
                 new PrecoTotal(preco); // janela de preço
 
                 conecta().execute("INSERT INTO encerrados (placa, datahora_inicial, datahora_final, valor) VALUES ('" + placa + "', '" + entrada + "', '" + saida + "', '" + preco + "');"); // insere carro encerrado
                 conecta().execute("DELETE FROM estacionados WHERE placa = '" + placa + "'"); // deleta carro estacionado
                 return true;
             } else {
-                JOptionPane.showMessageDialog(null, "ERRO! Placa não cadastrada."); // mensagem ao usuário
+                JOptionPane.showMessageDialog(null, "ERRO! Placa não cadastrada.", "Erro", JOptionPane.ERROR_MESSAGE); // mensagem ao usuário
                 return false;
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "ERRO! Tente novamente."); // mensagem ao usuário
+            JOptionPane.showMessageDialog(null, "ERRO! Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE); // mensagem ao usuário
             return false;
         }
     }
@@ -149,7 +149,7 @@ public class BD {
 
         String dataBanco;
 
-        System.out.println(dataAtual);
+        //System.out.println(dataAtual);
         /*System.out.println(c1.get(Calendar.DAY_OF_MONTH));
          System.out.println(c1.get(Calendar.MONTH)+1); mes começa no 0
          System.out.println(c1.get(Calendar.YEAR));*/
@@ -178,7 +178,7 @@ public class BD {
             total += "valor total: R$ " + String.format("%.2f", valorTotal);;
             
             if (cont == 0) {
-                JOptionPane.showMessageDialog(null, "Data não encontrada");
+                JOptionPane.showMessageDialog(null, "Data não encontrada", "Erro", JOptionPane.ERROR_MESSAGE);
                 return null;
             }
             return total;
@@ -226,7 +226,7 @@ public class BD {
             total += "valor total: R$ " + String.format("%.2f", valorTotal);;
 
             if (cont == 0) {
-                JOptionPane.showMessageDialog(null, "Data não encontrada");
+                JOptionPane.showMessageDialog(null, "Data não encontrada", "Erro", JOptionPane.ERROR_MESSAGE);
                 return null;
             }
             return total;
