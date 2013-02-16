@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 
 public class ManipulaValores extends javax.swing.JFrame {
@@ -26,7 +27,7 @@ public class ManipulaValores extends javax.swing.JFrame {
         {
             jButton2.setEnabled(false);
         }
-      
+        
 
         try {
             real.setMask("R$ #.##"); // mascara para preço
@@ -152,8 +153,18 @@ public class ManipulaValores extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        new EstacionamentoJG(trata(this.jTextField1.getText()), trata(this.jTextField2.getText()));
-        this.dispose();
+        Boolean a = true;
+        
+        if (jTextField2.getText().equals("") || jTextField2.getText().equals("R$ 0.00") || jTextField1.getText().equals("R$ 0.00")){
+            a = false;
+        }
+        
+        if (a == true) {
+            new EstacionamentoJG(trata(this.jTextField1.getText()), trata(this.jTextField2.getText()));
+            this.dispose();
+        }
+        else
+            JOptionPane.showMessageDialog(null, "Erro, campo vazio/zerado.");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
