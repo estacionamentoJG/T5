@@ -54,7 +54,7 @@ public class BD {
         }
     }
 
-    public Boolean Estacionado(String modelo, String placa, String cor, Timestamp entrada, String dia, Boolean promocao) { // insere no banco os carros que entraram no estacionamento
+    public Boolean Estacionado(String modelo, String placa, String cor, Timestamp entrada, String dia, Double pN, Double pH) { // insere no banco os carros que entraram no estacionamento
         try {
             ResultSet rs = conecta().executeQuery("SELECT COUNT(*) FROM estacionados WHERE placa='" + placa + "'"); // conta vezes que o veiculo foi cadastrado e não saiu do estacionamento
             int cont = 0;
@@ -63,7 +63,8 @@ public class BD {
                 //System.out.println(cont);
             }
             if (cont == 0) { // se a placa ainda não foi cadastrada
-                conecta().execute("INSERT INTO estacionados (placa, modelo, cor, datahora_inicial, dia, promocao) VALUES ('" + placa + "', '" + modelo + "', '" + cor + "', '" + entrada + "', '" + dia + "', '" + promocao + "');"); // insere carro estacionado
+                conecta().execute("INSERT INTO estacionados (placa, modelo, cor, datahora_inicial, dia, primeira_hora, preco_hora) "
+                        + "VALUES ('" + placa + "', '" + modelo + "', '" + cor + "', '" + entrada + "', '" + dia + "', '" + pN + "', '" + pH + "');"); // insere carro estacionado
                 pegaConexao().close();
                 JOptionPane.showMessageDialog(null, "Carro cadastrado com sucesso!"); // mensagem ao usuário
                 return true;
@@ -83,24 +84,27 @@ public class BD {
             ResultSet rs = conecta().executeQuery("SELECT * FROM estacionados WHERE placa='" + placa + "' "); // conta vezes que o veiculo foi cadastrado e não saiu do estacionamento
             Timestamp entrada = null;
             String diaEntrada  = null;
-            Boolean promocao = false;
+            Double pP = null;
+            Double pH = null;
             int cont = 0;
             
             while (rs.next()) {
                 entrada = rs.getTimestamp("datahora_inicial"); // pega Timestamp de entrada da placa
-                promocao = rs.getBoolean("promocao");
+                pP = rs.getDouble("primeira_hora");
+                pH = rs.getDouble("preco_hora");
+                System.out.println("to aqui: " + pP + "        " + pH);
                 cont++; // pega valor de vezes que ocorre a placa sem saida
             }
-            System.out.println(promocao);
             
             if (cont != 0) { // se placa está cadastrada
-                Valores valor = new Valores();
-
-                Double preco = valor.total(entrada, saida, promocao);
-                new PrecoTotal(preco);
+                Valores valor = new Valores(pP, pH);
+                
+                Double preco = valor.total(entrada, saida);
+                System.out.println(preco);
+                new PrecoTotal(preco); // janela de preço
 
                 conecta().execute("INSERT INTO encerrados (placa, datahora_inicial, datahora_final, valor) VALUES ('" + placa + "', '" + entrada + "', '" + saida + "', '" + preco + "');"); // insere carro encerrado
-                conecta().execute("DELETE FROM estacionados WHERE placa = '" + placa + "'"); // deleta carro estacionado
+                //conecta().execute("DELETE FROM estacionados WHERE placa = '" + placa + "'"); // deleta carro estacionado
                 return true;
             } 
             

@@ -6,12 +6,18 @@ package estacionamentojg;
 
 
 public class EstacionamentoJG extends javax.swing.JFrame {
-
+    
+    private Double primeiraHora;
+    private Double precoHora;
    
-    public EstacionamentoJG() {
-        initComponents();
-        setLocationRelativeTo(null); // coloca janela no centro da tela
-    }
+     EstacionamentoJG(Double pP, Double pH) {
+         //this.EstacionamentoJG();
+         initComponents();
+         setLocationRelativeTo(null); // coloca janela no centro da tela
+         setVisible(true);
+         this.primeiraHora = pP;
+         this.precoHora = pH;
+     }
 
    
     @SuppressWarnings("unchecked")
@@ -25,6 +31,8 @@ public class EstacionamentoJG extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,6 +56,18 @@ public class EstacionamentoJG extends javax.swing.JFrame {
 
         jMenu1.setText("Administrador");
         jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Tabela de Preços");
+
+        jMenuItem1.setText("Alterar tabela de preços");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -76,8 +96,8 @@ public class EstacionamentoJG extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        RegistraEntrada novo = new RegistraEntrada();
-        novo.principal(); // ação do botão registrar veiculo instancia novo objeto da classe RegistraEntrada
+        RegistraEntrada novo = new RegistraEntrada(this.primeiraHora, this.precoHora);
+        // ação do botão registrar veiculo instancia novo objeto da classe RegistraEntrada
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -85,12 +105,17 @@ public class EstacionamentoJG extends javax.swing.JFrame {
         novo.principal(); // ação do botão registrar veiculo instancia novo objeto da classe RegistraSaida
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        ManipulaValores manipula = new ManipulaValores();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     
     public static void main(String args[]) {
       
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EstacionamentoJG().setVisible(true);
+                new ManipulaValores();     
+                //new EstacionamentoJG().setVisible(true);
             }
         });
     }
@@ -100,7 +125,9 @@ public class EstacionamentoJG extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JOptionPane jOptionPane1;
     // End of variables declaration//GEN-END:variables
 }

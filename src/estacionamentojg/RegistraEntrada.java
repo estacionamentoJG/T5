@@ -11,21 +11,30 @@ import javax.swing.JTextField;
 
 public class RegistraEntrada extends javax.swing.JFrame {
     
-    Boolean promocao = false;
-
+    private Double primeiraHora;
+    private Double precoHora;
+    
     MaskFormatter mPLACA = new MaskFormatter();
     BD c = new BD();
     Veiculo carro = new Veiculo();
 
-    public RegistraEntrada() {
+    public RegistraEntrada(Double pP, Double pH) {
+        
+        setValores(pP, pH);
         initComponents();
-        setLocationRelativeTo(null); // coloca janela no centro da pagina 
+        setLocationRelativeTo(null); // coloca janela no centro da pagina
+        setVisible(true);
         try {
             mPLACA.setMask("UUU-####"); // mascara para placa
             mPLACA.setPlaceholderCharacter('_'); // caracter que fica ocupando o espaço
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+    
+    private void setValores(Double pP, Double pH) {
+       this.primeiraHora = pP;
+       this.precoHora = pH;
     }
 
     @SuppressWarnings("unchecked")
@@ -54,8 +63,6 @@ public class RegistraEntrada extends javax.swing.JFrame {
         tiposModelo = addComboBox(c.getModelos());
         textoPlaca = new JFormattedTextField(mPLACA);
         jButton1 = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jLabel1 = new javax.swing.JLabel();
 
         jToggleButton1.setText("jToggleButton1");
 
@@ -104,17 +111,6 @@ public class RegistraEntrada extends javax.swing.JFrame {
             }
         });
 
-        jCheckBox1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jCheckBox1.setText("R$1,00/hora");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabel1.setText("Promoção");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -129,23 +125,18 @@ public class RegistraEntrada extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(47, 47, 47)
+                                .addComponent(placa))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(29, 29, 29)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(modelo, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(placa, javax.swing.GroupLayout.Alignment.TRAILING)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(60, 60, 60)
-                                .addComponent(cor)))
+                                    .addComponent(cor, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(modelo, javax.swing.GroupLayout.Alignment.TRAILING))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(textoPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(textoCor, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tiposModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jCheckBox1)))
+                            .addComponent(tiposModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -158,23 +149,19 @@ public class RegistraEntrada extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(placa, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tiposModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(modelo))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoCor, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cor))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jCheckBox1))
-                .addGap(18, 18, 18)
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(registrar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         tiposModelo.getAccessibleContext().setAccessibleParent(tiposModelo);
@@ -196,7 +183,7 @@ public class RegistraEntrada extends javax.swing.JFrame {
         //System.out.println(carro.getPlaca() + " " + carro.getModelo() + " " + carro.getCor());
         
         BD registra = new BD(); // cria objeto BD
-        Boolean result = registra.Estacionado(carro.getModelo(), carro.getPlaca(), carro.getCor(), carro.getEntrada(), carro.diaDaSemanaInicial(), this.promocao); // insere carro estacionado
+        Boolean result = registra.Estacionado(carro.getModelo(), carro.getPlaca(), carro.getCor(), carro.getEntrada(), carro.diaDaSemanaInicial(), this.primeiraHora, this.precoHora); // insere carro estacionado
 
         if (result == true) {
             Ticket ticket = new Ticket();
@@ -220,28 +207,10 @@ public class RegistraEntrada extends javax.swing.JFrame {
 
     }//GEN-LAST:event_tiposModeloActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        if (jCheckBox1.isSelected()){  
-            promocao = true;  
-
-        }else {  
-            promocao = false;  
-
-        }
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
-
-    public void principal() {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RegistraEntrada().setVisible(true);
-            }
-        });
-    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel cor;
     private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel modelo;
     private javax.swing.JLabel placa;
