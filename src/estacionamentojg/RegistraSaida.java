@@ -112,12 +112,22 @@ public class RegistraSaida extends javax.swing.JFrame {
         carro.setPlaca(placa.getText());// pega placa escrita
         carro.setSaida();
         carro.getSaida(); // inicia data e hora de saida
+        Boolean a = true;
 
-        //System.out.println(carro.getPlaca() + " " + carro.getModelo() + " " + carro.getCor());
-        Boolean result = registra.Encerrado(carro.getPlaca(), carro.getSaida()); // insere carro encerrado no BD
-        if (result == true) {
-            this.dispose();   // fechar janela
+        for (int i = 0; i < placa.getText().length(); i++) {
+            if (placa.getText().charAt(i) == '_') {
+                a = false;
+            }
         }
+
+        if (a == true) {
+            Boolean result = registra.Encerrado(carro.getPlaca(), carro.getSaida()); // insere carro encerrado no BD
+            if (result == true) {
+                this.dispose();   // fechar janela
+            }
+        }
+        else
+            JOptionPane.showMessageDialog(null, "Erro, placa inválida.");
 
     }//GEN-LAST:event_encerrarActionPerformed
 
@@ -128,7 +138,6 @@ public class RegistraSaida extends javax.swing.JFrame {
     private void placaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_placaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_placaActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelar;
     private javax.swing.JButton encerrar;

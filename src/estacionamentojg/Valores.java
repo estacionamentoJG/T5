@@ -37,7 +37,7 @@ public class Valores {
 
         if (entrada.get(Calendar.DATE) == saida.get(Calendar.DATE)) { // se for o mesmo dia
 
-            if (entrada.get(Calendar.DAY_OF_WEEK) == 7) { // domingo
+            if (entrada.get(Calendar.DAY_OF_WEEK) == 1) { // domingo
                 this.precoTotal = this.precoDomingo; // valor unico de domingo
             } else {
                 if (entrada.get(Calendar.HOUR) == saida.get(Calendar.HOUR)) // se entrou e saiu na mesma hora cheia
@@ -55,7 +55,7 @@ public class Valores {
 
             ArrayList<Double> dias = new ArrayList();
 
-            if (entrada.get(Calendar.DAY_OF_WEEK) == 7) { // se for domingo
+            if (entrada.get(Calendar.DAY_OF_WEEK) == 1) { // se for domingo
                 dias.add(this.precoDomingo); // add precoDomingo no arrayList
             } else {
                 dias.add(((fechamentoDia - 1) * this.precoHora) + this.primeiraHora);
@@ -65,7 +65,7 @@ public class Valores {
                 entrada.add(Calendar.DATE, +1); // vai para o proximo dia
                 if (totalHoras > 24) { // se faltar mais de um dia | não for ultimo dia
                     //System.out.println("to aqui. totalHoras: " + totalHoras);
-                    if (entrada.get(Calendar.DAY_OF_WEEK) == 7) { // se domingo
+                    if (entrada.get(Calendar.DAY_OF_WEEK) == 1) { // se domingo
                         dias.add(this.precoDomingo);
                     } else {
                         dias.add((23 * this.precoHora) + this.primeiraHora); // calcula o preco do dia inteiro

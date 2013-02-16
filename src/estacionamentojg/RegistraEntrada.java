@@ -10,16 +10,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class RegistraEntrada extends javax.swing.JFrame {
-    
+
     private Double primeiraHora;
     private Double precoHora;
-    
     MaskFormatter mPLACA = new MaskFormatter();
     BD c = new BD();
     Veiculo carro = new Veiculo();
 
     public RegistraEntrada(Double pP, Double pH) {
-        
+
         setValores(pP, pH);
         initComponents();
         setLocationRelativeTo(null); // coloca janela no centro da pagina
@@ -31,10 +30,10 @@ public class RegistraEntrada extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    
+
     private void setValores(Double pP, Double pH) {
-       this.primeiraHora = pP;
-       this.precoHora = pH;
+        this.primeiraHora = pP;
+        this.precoHora = pH;
     }
 
     @SuppressWarnings("unchecked")
@@ -182,22 +181,40 @@ public class RegistraEntrada extends javax.swing.JFrame {
         carro.setCor(textoCor.getText()); // pega cor escrita
         carro.setEntrada(); // inicia data e hora da entrada
         //System.out.println(carro.getPlaca() + " " + carro.getModelo() + " " + carro.getCor());
-        
-        BD registra = new BD(); // cria objeto BD
-        Boolean result = registra.Estacionado(carro.getModelo(), carro.getPlaca(), carro.getCor(), carro.getEntrada(), carro.diaDaSemanaInicial(), this.primeiraHora, this.precoHora); // insere carro estacionado
+        Boolean a = true;
 
-        if (result == true) {
-            Ticket ticket = new Ticket();
-            ticket.setModelo(carro.getModelo());
-            ticket.setPlaca(carro.getPlaca());
-            ticket.setCor(carro.getCor());
-            ticket.setDia(carro.diaDaSemanaInicial());
-            ticket.setDatahora(carro.getEntrada());
-            ticket.emite();
-            this.dispose();   // fechar janela
+        for (int i = 0; i < textoPlaca.getText().length(); i++) {
+            if (textoPlaca.getText().charAt(i) == '_') {
+                a = false;
+            }
         }
+        
+        if (textoCor.getText().equals("")) {
+            a = false;
+        }
+        
+        if (carro.getModelo().equals("Escolha um modelo...")) {
+            a = false;
+        }
+            
 
+        if (a == true) {
+            BD registra = new BD(); // cria objeto BD
+            Boolean result = registra.Estacionado(carro.getModelo(), carro.getPlaca(), carro.getCor(), carro.getEntrada(), carro.diaDaSemanaInicial(), this.primeiraHora, this.precoHora); // insere carro estacionado
 
+            if (result == true) {
+                Ticket ticket = new Ticket();
+                ticket.setModelo(carro.getModelo());
+                ticket.setPlaca(carro.getPlaca());
+                ticket.setCor(carro.getCor());
+                ticket.setDia(carro.diaDaSemanaInicial());
+                ticket.setDatahora(carro.getEntrada());
+                ticket.emite();
+                this.dispose();   // fechar janela
+            }
+        }
+        else
+            JOptionPane.showMessageDialog(null, "Erro, tente novamente.");
     }//GEN-LAST:event_registrarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -205,10 +222,7 @@ public class RegistraEntrada extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tiposModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tiposModeloActionPerformed
-
     }//GEN-LAST:event_tiposModeloActionPerformed
-
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel cor;
     private javax.swing.JButton jButton1;

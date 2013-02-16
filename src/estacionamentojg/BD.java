@@ -75,7 +75,7 @@ public class BD {
                 JOptionPane.showMessageDialog(null, "ERRO! Carro já cadastrado."); // mensagem ao usuário
                 return false;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "ERRO! Tente novamente."); // mensagem ao usuário
             return false;
@@ -139,21 +139,15 @@ public class BD {
         }
     }
 
-    public String relDiario(String diaTT) {
+    public String relDiario(String dataAtual) {
 
-
-        String total = "\n\n";
+        String total = "";
         Double valorTotal = 0.0;
-        Date data = new java.util.Date();
-        Timestamp dia = new Timestamp(data.getTime());
-
-        Calendar c1 = Calendar.getInstance();
-        Calendar c2 = Calendar.getInstance();
-        c1.setTime(dia);
-
-        String dataAtual = c1.get(Calendar.DAY_OF_MONTH) + "." + (c1.get(Calendar.MONTH) + 1) + "." + c1.get(Calendar.YEAR);
-        String dataBanco;
         int cont = 0;
+        
+        Calendar c = Calendar.getInstance();
+
+        String dataBanco;
 
         System.out.println(dataAtual);
         /*System.out.println(c1.get(Calendar.DAY_OF_MONTH));
@@ -163,8 +157,8 @@ public class BD {
         try {
             ResultSet rs = conecta().executeQuery("SELECT * FROM encerrados;");
             while (rs.next()) {
-                c2.setTime(rs.getTimestamp("datahora_final"));
-                dataBanco = c2.get(Calendar.DAY_OF_MONTH) + "." + (c2.get(Calendar.MONTH) + 1) + "." + c2.get(Calendar.YEAR);
+                c.setTime(rs.getTimestamp("datahora_final"));
+                dataBanco = c.get(Calendar.DAY_OF_MONTH) + "." + (c.get(Calendar.MONTH) + 1) + "." + c.get(Calendar.YEAR);
                 if (dataBanco.equals(dataAtual)) {
                     total += rs.getString("placa");
                     total += "\t\t\t\t\t\t\t\t\t\t";
@@ -178,12 +172,15 @@ public class BD {
                     cont++;
                 }
             }
-
             total += "\n\n";
             total += "total de carros: " + cont;
             total += "            ";
             total += "valor total: R$ " + String.format("%.2f", valorTotal);;
-
+            
+            if (cont == 0) {
+                JOptionPane.showMessageDialog(null, "Data não encontrada");
+                return null;
+            }
             return total;
         } catch (Exception e) {
             e.printStackTrace();
@@ -191,9 +188,52 @@ public class BD {
         }
     }
 
-    public String relMensal() {
+    public String relMensal(String dataAtual) {
+        String total = "";
+        Double valorTotal = 0.0;
+        
+        Calendar c = Calendar.getInstance();
 
-        return null;
+        String dataBanco;
+        int cont = 0;
+
+        //System.out.println(dataAtual);
+        /*System.out.println(c1.get(Calendar.DAY_OF_MONTH));
+         System.out.println(c1.get(Calendar.MONTH)+1); mes começa no 0
+         System.out.println(c1.get(Calendar.YEAR));*/
+
+        try {
+            ResultSet rs = conecta().executeQuery("SELECT * FROM encerrados;");
+            while (rs.next()) {
+                c.setTime(rs.getTimestamp("datahora_final"));
+                dataBanco = (c.get(Calendar.MONTH) + 1) + "." + c.get(Calendar.YEAR);
+                if (dataBanco.equals(dataAtual)) {
+                    total += rs.getString("placa");
+                    total += "\t\t\t\t\t\t\t\t\t\t";
+                    total += rs.getTimestamp("datahora_inicial").toString();
+                    total += "\t\t\t\t\t\t\t\t\t\t";
+                    total += rs.getTimestamp("datahora_final").toString();
+                    total += "\t\t\t\t\t\t\t\t\t\t";
+                    total += "R$ " + String.format("%.2f", rs.getDouble("valor"));
+                    total += "\n";
+                    valorTotal += rs.getDouble("valor");
+                    cont++;
+                }
+            }
+            total += "\n\n";
+            total += "total de carros: " + cont;
+            total += "            ";
+            total += "valor total: R$ " + String.format("%.2f", valorTotal);;
+
+            if (cont == 0) {
+                JOptionPane.showMessageDialog(null, "Data não encontrada");
+                return null;
+            }
+            return total;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

@@ -4,6 +4,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
@@ -17,51 +18,74 @@ public class GeraRelatorio {
     private String d = "Relatorios/Relatorios Diarios";
     private String m = "Relatorios/Relatorios Mensais";
 
-    public void diario(String dia) throws Exception {
+    public void diario(String data) throws Exception {
+        data = getData(data);
+
         criaDiretorio(r);
         criaDiretorio(d);
         BD bd = new BD();
-   
-        String dados = bd.relDiario(dia);
         
-        geraPDF(d, dados);
+        String dados = bd.relDiario(data);     
+        if (dados != null) {
+            String nomePDF = geraPDF(d, dados);
+            System.out.println(nomePDF);
+            Desktop desktop = Desktop.getDesktop();
+            desktop.open(new File(nomePDF)); // abrir pdf automaticamente
+        }
     }
 
-    public void mensal() throws Exception {
+    public void mensal(String data) throws Exception {
+        data = getData(data);
+
         criaDiretorio(r);
         criaDiretorio(m);
         BD bd = new BD();
         
-        String dados = bd.relMensal();
-
-        geraPDF(m, dados);
+        String dados = bd.relMensal(data);    
+        if (dados != null) {
+            String nomePDF = geraPDF(d, dados);
+            Desktop desktop = Desktop.getDesktop();
+            desktop.open(new File(nomePDF)); // abrir pdf automaticamente
+        }
     }
 
-    public void geraPDF(String pasta, String dados) throws Exception {
+    private String geraPDF(String pasta, String dados) throws Exception {
+
+        String nomePDF = null;
+
         Document doc = null;
         OutputStream os = null;
-        String a = null;
+        String titulo = null;
+        String abas = "\n\nPlaca\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tData/hora de entrada\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t"
+                + "Data/hora de saída\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tValor\n";
 
         try {
             doc = new Document(PageSize.A4, 72, 72, 72, 72); //cria o documento tamanho A4, margens de 2,54cm
 
             if (pasta.equals(d)) {
-                os = new FileOutputStream(pasta + "/RD" + data() + ".pdf"); //cria a stream de saída
-                a = "Arquivo PDF de relatorio Diario.";
+                nomePDF = pasta + "/RD" + data() + ".pdf";
+                os = new FileOutputStream(nomePDF); //cria a stream de saída
+                titulo = "Relatorio Diario - Estacionamento JG";                
             } else if (pasta.equals(m)) {
-                os = new FileOutputStream(pasta + "/RM" + data() + ".pdf"); //cria a stream de saída
-                a = "Arquivo PDF de relatorio Mensal.";
+                nomePDF = pasta + "/RM" + data() + ".pdf";
+                os = new FileOutputStream(nomePDF); //cria a stream de saída
+                titulo = "Relatorio Mensal - Estacionamento JG";
             }
 
 
             PdfWriter.getInstance(doc, os); //associa a stream de saída ao
             doc.open(); //abre o documento
 
-            Paragraph p = new Paragraph(a);
+            Paragraph p = new Paragraph(titulo);
             doc.add(p);
             
-            Paragraph dados1 = new Paragraph (dados);
-            doc.add(dados1);
+            p = new Paragraph(abas);
+            doc.add(p);
+
+            p = new Paragraph(dados);
+            doc.add(p);
+
+            return nomePDF;
 
         } finally {
             if (doc != null) {
@@ -101,5 +125,22 @@ public class GeraRelatorio {
         //System.out.println(sData);
         return sData;
     }
-    
+
+    private String getData(String data) {
+        String d = "";
+        for (int i = 0; i < data.length(); i++) {
+            if (data.charAt(i) == '/') {
+                d += '.';
+            } else {
+                if (i == 0 || i == 3) {
+                    if (data.charAt(i) != '0') {
+                        d += data.charAt(i);
+                    }
+                } else {
+                    d += data.charAt(i);
+                }
+            }
+        }
+        return d;
+    }
 }
