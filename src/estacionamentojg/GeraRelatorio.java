@@ -106,8 +106,8 @@ public class GeraRelatorio {
             diretorio.mkdir(); // cria diretorio 
         }
     }
-//ver metodo
-    private String data() {//cria metodo para tratar a data 
+
+    private String data() {//cria metodo para transformar a data de string para double
         Date data = new Date(); //cria objeto data da classe date
         Timestamp timestamp = new Timestamp(data.getTime());// cria objeto timestamp da clase Timestamp passando da data desejada
         String aux = timestamp.toString();//transforma a data para string
@@ -126,7 +126,7 @@ public class GeraRelatorio {
         return sData;
     }
 
-    private String getData(String data) { //metodo para pegar a data
+    private String getData(String data) { //metodo para pegar a data e alterar sua estrutura
         String d = ""; 
         for (int i = 0; i < data.length(); i++) {//laco para alterar a barra por ponto e retirar o 0 do dia e do mes
             if (data.charAt(i) == '/') {

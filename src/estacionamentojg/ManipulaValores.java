@@ -172,7 +172,7 @@ public class ManipulaValores extends javax.swing.JFrame {
     public Double trata(String texto) { //metodo para tratar string para double
         String stringFinal = ""; //inicializa stringfinal
         for (int i = 0; i < texto.length(); i++) { //laco para concatenar cada caracter em uma string
-            if (i > 2) {
+            if (i > 2) {//pega a partir do terceiro elemento transformando R$ 3,00 em 3,00
                 stringFinal += Character.toString(texto.charAt(i));
             }
         }
