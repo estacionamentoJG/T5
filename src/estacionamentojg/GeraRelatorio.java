@@ -107,12 +107,12 @@ public class GeraRelatorio {
         }
     }
 
-    private String data() {//cria metodo para transformar a data de string para double
+    private String data() {// metodo que transforma timestamp em string para titulo do pdf
         Date data = new Date(); //cria objeto data da classe date
         Timestamp timestamp = new Timestamp(data.getTime());// cria objeto timestamp da clase Timestamp passando da data desejada
         String aux = timestamp.toString();//transforma a data para string
         String sData = "";
-        for (int i = 0; i < 20; i++) {//laco para separar a hora,minuto,segundo?
+        for (int i = 0; i < 20; i++) {//laco que percorre timestamp e para antes dos centésimos
             if (i == 13) {
                 sData += 'h';
             } else if (i == 16) {
@@ -120,10 +120,10 @@ public class GeraRelatorio {
             } else if (i == 19) {
                 sData += 's';
             } else {
-                sData += aux.charAt(i);
+                sData += aux.charAt(i); // concatena todas as posições numa nova string
             }
         }
-        return sData;
+        return sData; // retorna timestamp editada como string
     }
 
     private String getData(String data) { //metodo para pegar a data e alterar sua estrutura

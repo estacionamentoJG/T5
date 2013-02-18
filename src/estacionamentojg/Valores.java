@@ -42,11 +42,11 @@ public class Valores {
             Double fechamentoDia = (double) 24 - entrada.get(Calendar.HOUR_OF_DAY); // quantia de horas do primeiro dia
             totalHoras -= fechamentoDia; // calcula o restante de horas pendentes
 
-            ArrayList<Double> dias = new ArrayList();//cria um objeto da classe dias
+            ArrayList<Double> dias = new ArrayList();//cria um arraylist de dias
 
             if (entrada.get(Calendar.DAY_OF_WEEK) == 1) { // se a entrada for domingo
                 dias.add(this.precoDomingo); // add precoDomingo no arrayList
-            } else {
+            } else { // se não for domingo
                 dias.add(((fechamentoDia - 1) * this.precoHora) + this.primeiraHora);//calcula o valor do dia  - 1 pq a primeira hora n conta
             }
 
