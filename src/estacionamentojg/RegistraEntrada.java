@@ -11,42 +11,42 @@ import javax.swing.JTextField;
 
 public class RegistraEntrada extends javax.swing.JFrame {
 
-    private Double primeiraHora;
+    private Double primeiraHora; 
     private Double precoHora;
-    MaskFormatter mPLACA = new MaskFormatter();
-    BD c = new BD();
-    Veiculo carro = new Veiculo();
+    MaskFormatter mPLACA = new MaskFormatter(); //cria objeto mPLACA da classe MaskFormatter
+    BD c = new BD(); //cria objeto c da classe BD
+    Veiculo carro = new Veiculo(); //cria objeto carro da classe Veiculo
 
-    public RegistraEntrada(Double pP, Double pH) {
-
-        setValores(pP, pH);
+    public RegistraEntrada(Double pP, Double pH) {//cria construtor
+        setValores(pP, pH);//chama o metodo para setar os valores das variaveis primeiraHora e preçoHora 
         initComponents();
         setLocationRelativeTo(null); // coloca janela no centro da pagina
         setVisible(true);
         try {
             mPLACA.setMask("UUU-####"); // mascara para placa
             mPLACA.setPlaceholderCharacter('_'); // caracter que fica ocupando o espaço
-        } catch (ParseException e) {
+        } catch (ParseException e) { //controle de excecao
             e.printStackTrace();
         }
     }
 
-    private void setValores(Double pP, Double pH) {
-        this.primeiraHora = pP;
+    private void setValores(Double pP, Double pH) { //cria metodo para setar as variaveis primeiraHora e preçoHora
+        this.primeiraHora = pP; 
         this.precoHora = pH;
     }
 
     @SuppressWarnings("unchecked")
-    private JComboBox addComboBox(ArrayList x) {
-        JComboBox cb = new JComboBox(); // cria objeto JComboBox       
-        String str; // inicia string
-        ArrayList<String> listaModelos = x; // cria arrayList de strings
-        cb.addItem("Escolha um modelo...");
-        for (String n : listaModelos) {
+    
+    private JComboBox addComboBox(ArrayList x) {//cria um metodo para adicionar dados do ArrayList no combobox
+        JComboBox cb = new JComboBox(); // cria objeto cb da classe JComboBox       
+        String str; //declara str da classe String
+        ArrayList<String> listaModelos = x; // define o tipo da variavel que  armazenara os modelos do banco e recebe a variavel passada por parametro pelo metodo
+        cb.addItem("Escolha um modelo...");//adiciona a string no combobox
+        for (String n : listaModelos) { //laço para adicionar os valores da lista de modelos do banco no combobox
             str = n; // pega cada item
             cb.addItem(n);  // e add no JComboBox
         }
-        cb.addItem("Outro");
+        cb.addItem("Outro");//adiciona uma string para definir um carro inexistente no banco
         return cb; // retorna JComboBox
     }
 
@@ -90,18 +90,8 @@ public class RegistraEntrada extends javax.swing.JFrame {
         });
 
         tiposModelo.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        tiposModelo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tiposModeloActionPerformed(evt);
-            }
-        });
 
         textoPlaca.setFont(new java.awt.Font("Calibri", 1, 48)); // NOI18N
-        textoPlaca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoPlacaActionPerformed(evt);
-            }
-        });
 
         jButton1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButton1.setText("Cancelar");
@@ -169,60 +159,53 @@ public class RegistraEntrada extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void textoPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoPlacaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textoPlacaActionPerformed
-
     private void registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarActionPerformed
         // AÇÃO DO BOTÃO REGISTRAR
 
-        carro.setPlaca(textoPlaca.getText());// pega placa escrita
-        carro.setModelo((String) tiposModelo.getSelectedItem()); // converte em string o item selecionado
-        carro.setCor(textoCor.getText()); // pega cor escrita
+        carro.setPlaca(textoPlaca.getText());// pega valor da placa 
+        carro.setModelo((String)tiposModelo.getSelectedItem()); // converte em string o item selecionado
+        carro.setCor(textoCor.getText()); // pega valor da cor 
         carro.setEntrada(); // inicia data e hora da entrada
-        //System.out.println(carro.getPlaca() + " " + carro.getModelo() + " " + carro.getCor());
         Boolean a = true;
 
-        for (int i = 0; i < textoPlaca.getText().length(); i++) {
+        for (int i = 0; i < textoPlaca.getText().length(); i++) { //laco com condicao para nao deixar registar se o usuario for registrar a placa com _
             if (textoPlaca.getText().charAt(i) == '_') {
                 a = false;
             }
         }
         
-        if (textoCor.getText().equals("")) {
+        if (textoCor.getText().equals("")) { //laco com condicao para nao deixar registar se o campo cor estiver vazio
             a = false;
         }
         
-        if (carro.getModelo().equals("Escolha um modelo...")) {
+        if (carro.getModelo().equals("Escolha um modelo...")) {//condicao para nao deixar registar se o usuario nao escolher um modelo
             a = false;
         }
             
 
-        if (a == true) {
-            BD registra = new BD(); // cria objeto BD
+        if (a == true) { //condicao para registar o carro 
+            BD registra = new BD(); // cria objeto registra da classe BD
             Boolean result = registra.Estacionado(carro.getModelo(), carro.getPlaca(), carro.getCor(), carro.getEntrada(), carro.diaDaSemanaInicial(), this.primeiraHora, this.precoHora); // insere carro estacionado
 
-            if (result == true) {
-                Ticket ticket = new Ticket();
-                ticket.setModelo(carro.getModelo());
-                ticket.setPlaca(carro.getPlaca());
-                ticket.setCor(carro.getCor());
-                ticket.setDia(carro.diaDaSemanaInicial());
-                ticket.setDatahora(carro.getEntrada());
-                ticket.emite();
+            if (result == true) { //se carro for registrado passar os dados do carro registrado para o objeto ticket e o ticket eh gerado 
+                Ticket ticket = new Ticket(); //cria objeto ticket da classe Ticket
+                ticket.setModelo(carro.getModelo());//pega modelo do carro
+                ticket.setPlaca(carro.getPlaca());//pega placa do carro
+                ticket.setCor(carro.getCor());//pega cor do carro
+                ticket.setDia(carro.diaDaSemanaInicial());//pega dia da semana
+                ticket.setDatahora(carro.getEntrada());//pega data e hora da entrada do carro
+                ticket.emite();//emite o ticket
                 this.dispose();   // fechar janela
             }
         }
-        else
+        else //controle de excecao para caso n registrar o carro
             JOptionPane.showMessageDialog(null, "Erro, tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_registrarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.dispose();
+        this.dispose();//fechar a janela no botao cancelar
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void tiposModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tiposModeloActionPerformed
-    }//GEN-LAST:event_tiposModeloActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel cor;
     private javax.swing.JButton jButton1;

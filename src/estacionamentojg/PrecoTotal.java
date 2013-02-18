@@ -1,33 +1,23 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package estacionamentojg;
 
 import javax.swing.JLabel;
 
-/**
- *
- * @author Multiweb-Guilherme
- */
 public class PrecoTotal extends javax.swing.JFrame {
     
-    public PrecoTotal(Double preco) {
+    public PrecoTotal(Double preco) { //construtor 
         this.setVisible(true);
-        this.textoJLabel(preco);
+        this.textoJLabel(preco);//inicializa a label preco total
         initComponents();
         this.setSize(350, 150);
         setLocationRelativeTo(null);
     }
     
-    private JLabel jPreco = new javax.swing.JLabel();
+    private JLabel jPreco = new javax.swing.JLabel(); //cria objeto jpreco da classe jlabel 
     
     public void textoJLabel(Double preco) {
-        
-        String precoTotal = "R$ " + preco + "0"; // string de preco
-        
-        jPreco.setFont(new java.awt.Font("Calibri", 1, 30));
-        jPreco.setText(precoTotal);
+        String precoTotal = "R$ " + preco + "0"; // string recebe preco total
+        jPreco.setFont(new java.awt.Font("Calibri", 1, 30));//define fonte
+        jPreco.setText(precoTotal);//seta preco total
     }
     
     @SuppressWarnings("unchecked")

@@ -10,22 +10,22 @@ import javax.swing.text.MaskFormatter;
 
 public class ManipulaValores extends javax.swing.JFrame {
 
-    MaskFormatter real = new MaskFormatter();
+    MaskFormatter real = new MaskFormatter(); //cria objeto para a classe maskFormatter
 
-    public ManipulaValores() {
+    public ManipulaValores() {//construtor
 
         initComponents();
         setLocationRelativeTo(null); // coloca janela no centro da pagina
         setVisible(true);
 
-        Date data = new Date();
-        Timestamp timestamp = new Timestamp(data.getTime());
-        Calendar c = Calendar.getInstance();
-        c.setTime(timestamp);
+        Date data = new Date(); // cria objeto data da classe Date
+        Timestamp timestamp = new Timestamp(data.getTime()); //cria objeto timestamp da clsse TimeStamp
+        Calendar c = Calendar.getInstance();//cria objeto da claasse calendar
+        c.setTime(timestamp);//seta o objeto timestamp 
 
-        if (c.get(Calendar.DAY_OF_WEEK) == 1) // se for domingo
+        if (c.get(Calendar.DAY_OF_WEEK) == 1) // pega o domingo
         {
-            jButton2.setEnabled(false);
+            jButton2.setEnabled(false); //seta como false o botao ok porque nao eh possivel definir valores para o domingo
         }
         
 
@@ -65,11 +65,6 @@ public class ManipulaValores extends javax.swing.JFrame {
         jTextField1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
 
         jTextField2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
 
         jButton1.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jButton1.setText("Padrão");
@@ -153,13 +148,14 @@ public class ManipulaValores extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        //acao do botao Ok
         Boolean a = true;
-        
+        //condicao para nao deixa setar o dia como de "graça" e nem deixar os campos nulos
         if (jTextField2.getText().equals("") || jTextField2.getText().equals("R$ 0.00") || jTextField1.getText().equals("R$ 0.00")){
             a = false;
         }
         
-        if (a == true) {
+        if (a == true) {// trata os dois valores informados pelo usuario
             new EstacionamentoJG(trata(this.jTextField1.getText()), trata(this.jTextField2.getText()));
             this.dispose();
         }
@@ -168,26 +164,21 @@ public class ManipulaValores extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new EstacionamentoJG(2.0, 1.0);
-        this.dispose();        // TODO add your handling code here:
+        //acao do botao padrao 
+        new EstacionamentoJG(2.0, 1.0);//define valores 2.0 para primeirahora e 1.0 para precohora
+        this.dispose();        //fechar a tela
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
-    public Double trata(String texto) {
-        String stringFinal = "";
-
-        for (int i = 0; i < texto.length(); i++) {
+    public Double trata(String texto) { //metodo para tratar string para double
+        String stringFinal = ""; //inicializa stringfinal
+        for (int i = 0; i < texto.length(); i++) { //laco para concatenar cada caracter em uma string
             if (i > 2) {
                 stringFinal += Character.toString(texto.charAt(i));
             }
         }
-
-        return Double.parseDouble(stringFinal);
-
+        return Double.parseDouble(stringFinal);//transforma stringfinal para double
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

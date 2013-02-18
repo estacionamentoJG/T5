@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package estacionamentojg;
 
 import java.text.ParseException;
@@ -9,15 +5,11 @@ import javax.swing.text.MaskFormatter;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Multiweb-Guilherme
- */
 public class RegistraSaida extends javax.swing.JFrame {
 
-    MaskFormatter mPLACA = new MaskFormatter();
+    MaskFormatter mPLACA = new MaskFormatter();//cria objeto mPlaca da classe MaskFormatter
 
-    public RegistraSaida() {
+    public RegistraSaida() {//cria construtor
         initComponents();
         setLocationRelativeTo(null); // coloca janela no centro da pagina 
         setVisible(true);
@@ -45,11 +37,6 @@ public class RegistraSaida extends javax.swing.JFrame {
         jLabel1.setText("Placa");
 
         placa.setFont(new java.awt.Font("Calibri", 1, 48)); // NOI18N
-        placa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                placaActionPerformed(evt);
-            }
-        });
 
         encerrar.setBackground(new java.awt.Color(51, 153, 255));
         encerrar.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -107,22 +94,22 @@ public class RegistraSaida extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void encerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encerrarActionPerformed
-        Veiculo carro = new Veiculo();
-        BD registra = new BD(); // cria objeto BD
-        carro.setPlaca(placa.getText());// pega placa escrita
-        carro.setSaida();
+        Veiculo carro = new Veiculo(); // cria objeto carro da classe veiculo
+        BD registra = new BD(); // cria objeto registra da classe bd
+        carro.setPlaca(placa.getText());// pega valor da placa
+        carro.setSaida();//seta o valor de saida
         carro.getSaida(); // inicia data e hora de saida
         Boolean a = true;
 
-        for (int i = 0; i < placa.getText().length(); i++) {
+        for (int i = 0; i < placa.getText().length(); i++) {//laco com condicao para nao deixar registar se o usuario for registrar a placa com _ 
             if (placa.getText().charAt(i) == '_') {
                 a = false;
             }
         }
 
-        if (a == true) {
-            Boolean result = registra.Encerrado(carro.getPlaca(), carro.getSaida()); // insere carro encerrado no BD
-            if (result == true) {
+        if (a == true) {//condicao registrar a saida do carro
+            Boolean result = registra.Encerrado(carro.getPlaca(), carro.getSaida()); // insere carro encerrado na tabela encerrados do bd
+            if (result == true) {//se foi registrado
                 this.dispose();   // fechar janela
             }
         }
@@ -132,12 +119,9 @@ public class RegistraSaida extends javax.swing.JFrame {
     }//GEN-LAST:event_encerrarActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
-        this.dispose(); // fecha janela
+        this.dispose(); // acao de fechar janela no botao cancelar
     }//GEN-LAST:event_cancelarActionPerformed
 
-    private void placaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_placaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_placaActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelar;
     private javax.swing.JButton encerrar;

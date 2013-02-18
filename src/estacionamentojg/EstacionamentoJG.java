@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package estacionamentojg;
 
 import java.awt.Desktop;
@@ -17,12 +13,11 @@ public class EstacionamentoJG extends javax.swing.JFrame {
     private Double primeiraHora;
     private Double precoHora;
 
-    EstacionamentoJG(Double pP, Double pH) {
-        //this.EstacionamentoJG();        
+    EstacionamentoJG(Double pP, Double pH) { //construtor       
         initComponents();
         setLocationRelativeTo(null); // coloca janela no centro da tela
         setVisible(true);
-        this.primeiraHora = pP;
+        this.primeiraHora = pP;//variavel primeira hora recebe Preco primeira hora da classe
         this.precoHora = pH;     
     }
 

@@ -157,9 +157,6 @@
           <ComponentRef name="tiposModelo"/>
         </Property>
       </AccessibilityProperties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tiposModeloActionPerformed"/>
-      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="addComboBox(c.getModelos());"/>
         <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="RegistraEntrada_tiposModelo"/>
@@ -173,9 +170,6 @@
           <Font name="Calibri" size="48" style="1"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textoPlacaActionPerformed"/>
-      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(mPLACA);"/>
       </AuxValues>

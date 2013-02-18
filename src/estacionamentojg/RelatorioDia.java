@@ -9,8 +9,9 @@ import javax.swing.text.MaskFormatter;
 
 public class RelatorioDia extends javax.swing.JFrame {
 
-    MaskFormatter mData = new MaskFormatter();
-    public RelatorioDia() {
+    MaskFormatter mData = new MaskFormatter();//cria objeto mData da classe MaskFormatter
+    
+    public RelatorioDia() { //cria construtor
         initComponents();
         setLocationRelativeTo(null); // coloca janela no centro da pagina
         setVisible(true);
@@ -42,11 +43,6 @@ public class RelatorioDia extends javax.swing.JFrame {
         jLabel1.setText("Data");
 
         jTextField1.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
 
         jButton1.setFont(new java.awt.Font("Calibri", 0, 15)); // NOI18N
         jButton1.setText("Ok");
@@ -102,23 +98,20 @@ public class RelatorioDia extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.dispose();
+        this.dispose();//acao de fechar para o botao cancelar
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String data = jTextField1.getText();
-        GeraRelatorio rDiario = new GeraRelatorio();
+        //acao do botao OK
+        String data = jTextField1.getText(); //variavel data recebe valor do campo data
+        GeraRelatorio rDiario = new GeraRelatorio(); //cria objeto rDiario da classe GeraRelatorio
         try {
-            rDiario.diario(data);
+            rDiario.diario(data); //objeto rdiario chama o metodo diario passando o valor data 
         } catch (Exception ex) {
             Logger.getLogger(RelatorioDia.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.dispose();
+        this.dispose();//fechar a janela
     }//GEN-LAST:event_jButton1ActionPerformed
     
     

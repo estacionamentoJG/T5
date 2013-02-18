@@ -39,11 +39,6 @@ public class RelatorioMes extends javax.swing.JFrame {
         jLabel1.setText("Mes/Ano");
 
         jTextField1.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
 
         jButton1.setFont(new java.awt.Font("Calibri", 0, 15)); // NOI18N
         jButton1.setText("Ok");
@@ -105,49 +100,18 @@ public class RelatorioMes extends javax.swing.JFrame {
        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String mesAno = jTextField1.getText();
-        GeraRelatorio rMensal = new GeraRelatorio();
+        String mesAno = jTextField1.getText(); //string mesAno pega o valor do campo jtextfield1
+        GeraRelatorio rMensal = new GeraRelatorio();//cria um objeto rMensal da classe GeraRelatorio
         try {
-            rMensal.mensal(mesAno);
+            rMensal.mensal(mesAno);//objeto rmensal chama o metodo mensal passando o valor digitado no campo
         } catch (Exception ex) {
             Logger.getLogger(RelatorioMes.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.dispose();
+        this.dispose();//fecha a janela
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RelatorioMes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RelatorioMes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RelatorioMes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RelatorioMes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new RelatorioMes().setVisible(true);

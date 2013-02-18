@@ -12,37 +12,37 @@ public class Ticket extends javax.swing.JFrame {
     private String data;
     private String dia;
     private Timestamp datahora;
-    private JLabel jModelo = new javax.swing.JLabel();
-    private JLabel jPlaca = new javax.swing.JLabel();
-    private JLabel jCor = new javax.swing.JLabel();
-    private JLabel jDatahora = new javax.swing.JLabel();
+    private JLabel jModelo = new javax.swing.JLabel(); //cria objeto jmodelo da classe jlabel
+    private JLabel jPlaca = new javax.swing.JLabel();//cria objeto jplaca da classe jlabel
+    private JLabel jCor = new javax.swing.JLabel();//cria objeto jcor da classe jlabel
+    private JLabel jDatahora = new javax.swing.JLabel();//cria objeto jdatahora da classe jlabel
     
-    public void setModelo(String modelo) {
+    public void setModelo(String modelo) { //metodo para setar o modelo
         this.modelo = modelo;
     }
     
-    public void setPlaca(String placa){
+    public void setPlaca(String placa){ //metodo para setar a placa
         this.placa = placa;        
     }
     
-    public void setCor(String cor) {
+    public void setCor(String cor) { //metodo para setar a cor
         this.cor = cor;
     }
     
-    public void setDia(String dia) {
+    public void setDia(String dia) { //metodo para setar dia
         this.dia = dia;
     }
     
-    public void setDatahora(Timestamp datahora) {
+    public void setDatahora(Timestamp datahora) { //metodo para setar data e  hora
         this.datahora = datahora;
     }
     
-    public String timestampToString() {
-        this.data = "" + this.datahora;
+    public String timestampToString() { //metodo para transformar a data em string
+        this.data = "" + this.datahora; //concatena a string com a datahora
         return this.data;
     }
 
-    public void textoJLabel() {
+    public void textoJLabel() { //metodo para configurar o modelo,placa,cor e data
         jModelo.setFont(new java.awt.Font("Calibri", 0, 18));
         jModelo.setText(modelo);
 
@@ -54,16 +54,14 @@ public class Ticket extends javax.swing.JFrame {
 
         jDatahora.setFont(new java.awt.Font("Calibri", 0, 18));
         jDatahora.setText(timestampToString() + " " + this.dia);
-        //System.out.println(this.dia);
     }
 
-    public void emite() { // classe principal
-        textoJLabel();
-        //System.out.println(modelo);
+    public void emite() { //metodo para emitir ticket
+        textoJLabel(); //chama metodo para setar os dados
         initComponents();
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null); //nao precisa posicionar no centro
         this.setVisible(true);
-        this.setSize(300, 400);
+        this.setSize(300, 400);//define tamanho da janela
     }
 
     @SuppressWarnings("unchecked")
@@ -205,15 +203,9 @@ public class Ticket extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void fecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecharActionPerformed
-        this.dispose();
+        this.dispose();//acao de fechar para o botao fechar
     }//GEN-LAST:event_fecharActionPerformed
-    /* public void principal() {
-     java.awt.EventQueue.invokeLater(new Runnable() {
-     public void run() {
-     new Ticket().setVisible(true);
-     }
-     });
-     }*/
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton fechar;
     private javax.swing.JLabel jLabel1;
